@@ -1,0 +1,45 @@
+{
+  "name": "grunt-svgstore",
+  "description": "Merge SVGs from a folder.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/FWeinb/grunt-svgstore",
+  "author": {
+    "name": "Fabrice Weinberg",
+    "email": "Fabrice@weinberg.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/FWeinb/grunt-svgstore.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FWeinb/grunt-svgstore/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/FWeinb/grunt-svgstore/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt": "~0.4.2",
+    "cheerio": "^0.13.1",
+    "chalk": "^0.4.0"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.2"
+  },
+  "keywords": [
+    "svg",
+    "icon",
+    "sprite"
+  ]
+}
