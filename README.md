@@ -29,8 +29,8 @@ In your project's Gruntfile, add a section named `svgstore` to the data object p
 grunt.initConfig({
   svgstore: {
     options: {
-      prefix : 'icon-', // This will prefix each
-      svg: {
+      prefix : 'icon-', // This will prefix each ID
+      svg: { // will be added as attributes to the resulting SVG
         viewBox : '0 0 100 100'
       }
     },
