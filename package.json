@@ -34,6 +34,10 @@
     "cheerio": "^0.13.1",
     "chalk": "^0.4.0"
   },
+  "dependencies": {
+    "cheerio": "^0.13.1",
+    "chalk": "^0.4.0"
+  },
   "peerDependencies": {
     "grunt": "~0.4.2"
   },
