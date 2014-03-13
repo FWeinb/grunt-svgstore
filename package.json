@@ -30,9 +30,7 @@
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-contrib-clean": "~0.4.0",
     "grunt-contrib-nodeunit": "~0.2.0",
-    "grunt": "~0.4.2",
-    "cheerio": "^0.13.1",
-    "chalk": "^0.4.0"
+    "grunt": "~0.4.2"
   },
   "dependencies": {
     "cheerio": "^0.13.1",
