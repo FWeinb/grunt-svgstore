@@ -82,8 +82,10 @@ This example will merge all elements from the `svgs` folder into the `<defs>`-Bl
 grunt.initConfig({
   svgstore: {
     options: {},
-    files: {
-      'dest/dest.svg': ['svgs/*.svg'],
+    default : {
+      files: {
+        'dest/dest.svg': ['svgs/*.svg'],
+      },
     },
   },
 });
