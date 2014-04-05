@@ -49,7 +49,7 @@ Default value: `''`
 
 A string value that is used to prefix each filename to generate the id.
 
-#### options.str
+#### options.svg
 Type: `Object`
 Default value: `{}`
 
