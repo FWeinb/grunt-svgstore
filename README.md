@@ -66,6 +66,12 @@ will result in:
 [...]
 ```
 
+#### options.beautify
+Type: `Object`
+Default value: `{indent_size: 2}`
+
+Indentation options for generated code. See github.com/einars/js-beautify for more options.
+
 ### Usage Examples
 
 This example will merge all elements from the `svgs` folder into the `<defs>`-Block of the `dest.svg`. You can use that SVG in HTML like:
