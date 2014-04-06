@@ -66,11 +66,32 @@ will result in:
 [...]
 ```
 
-#### options.beautify
-Type: `Object`
-Default value: `{indent_size: 2}`
+#### options.formatting
+Type: `Object` or `false`
+Default value: `false`
 
-Indentation options for generated code. See github.com/einars/js-beautify for more options.
+Formatting options for generated code.
+
+To add indentation, set `formatting` to: `{indent_size : 2}`, which in context looks like:
+
+```js
+default: {
+  options: {
+    formatting : {
+      indent_size : 2
+    }
+  }
+```
+See github.com/einars/js-beautify for more options.
+
+To turn off, leave out this option or set it to false, like:
+```js
+default: {
+  options: {
+    formatting : false
+  }
+```
+
 
 ### Usage Examples
 

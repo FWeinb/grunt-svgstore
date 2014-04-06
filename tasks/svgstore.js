@@ -28,9 +28,7 @@ module.exports = function(grunt) {
     var options = this.options({
       prefix : '',
       svg : { },
-      beautify : {
-        indent_size : 2,
-      }
+      formatting : false
     });
 
     this.files.forEach(function(f) {
@@ -87,7 +85,9 @@ module.exports = function(grunt) {
 
       });
 
-      grunt.file.write(f.dest, beautify($resultDocument.html(), options.beautify));
+      var result = options.formatting ? beautify($resultDocument.html(), options.formatting) : $resultDocument.html();
+
+      grunt.file.write(f.dest, result);
 
       grunt.log.writeln('File ' + chalk.cyan(f.dest) + ' created.');
 
