@@ -82,16 +82,7 @@ default: {
     }
   }
 ```
-See github.com/einars/js-beautify for more options.
-
-To turn off, leave out this option or set it to false, like:
-```js
-default: {
-  options: {
-    formatting : false
-  }
-```
-
+See [js-beautify](https://github.com/einars/js-beautify) for more options.
 
 ### Usage Examples
 
