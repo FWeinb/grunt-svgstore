@@ -56,8 +56,18 @@ module.exports = function(grunt) {
         files: {
           'tmp/svg_attr.svg': ['test/fixtures/codepen.svg']
         }
-      }
+      },
 
+      formatting: {
+        options: {
+          formatting : {
+            indent_size : 2
+          }
+        },
+        files: {
+          'tmp/formatting.svg': ['test/fixtures/codepen.svg']
+        },
+      }
     },
 
     // Unit tests.

@@ -66,6 +66,33 @@ will result in:
 [...]
 ```
 
+#### options.formatting
+Type: `Object` or `false`
+Default value: `false`
+
+Formatting options for generated code.
+
+To format the generated HTML, set `formatting` with [options](https://github.com/einars/js-beautify#options) like: `{indent_size : 2}`, which in context looks like:
+
+```js
+default: {
+  options: {
+    formatting : {
+      indent_size : 2
+    }
+  }
+```
+See github.com/einars/js-beautify for more options.
+
+To turn off, leave out this option or set it to false, like:
+```js
+default: {
+  options: {
+    formatting : false
+  }
+```
+
+
 ### Usage Examples
 
 This example will merge all elements from the `svgs` folder into the `<defs>`-Block of the `dest.svg`. You can use that SVG in HTML like:

@@ -9,11 +9,12 @@
 'use strict';
 module.exports = function(grunt) {
 
-  var crypto  = require('crypto'),
-      path    = require('path'),
+  var crypto   = require('crypto'),
+      path     = require('path'),
 
-      cheerio = require('cheerio'),
-      chalk   = require('chalk');
+      beautify = require('js-beautify').html,
+      cheerio  = require('cheerio'),
+      chalk    = require('chalk');
 
   var md5 = function(str){
     return crypto.createHash('md5').update(str).digest('hex');
@@ -26,7 +27,8 @@ module.exports = function(grunt) {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       prefix : '',
-      svg : { }
+      svg : { },
+      formatting : false
     });
 
     this.files.forEach(function(f) {
@@ -78,13 +80,14 @@ module.exports = function(grunt) {
         // Add ID to the first Element
         $res('*').first().attr('id', options.prefix + filename);
 
-        // Insert in resutling SVG
+        // Insert in resulting SVG
         $resultDefs.append( $res.html() );
 
       });
 
+      var result = options.formatting ? beautify($resultDocument.html(), options.formatting) : $resultDocument.html();
 
-      grunt.file.write(f.dest, $resultDocument.html());
+      grunt.file.write(f.dest, result);
 
       grunt.log.writeln('File ' + chalk.cyan(f.dest) + ' created.');
 
