@@ -72,7 +72,7 @@ Default value: `false`
 
 Formatting options for generated code.
 
-To add indentation, set `formatting` to: `{indent_size : 2}`, which in context looks like:
+To format the generated HTML, set `formatting` with [options](github.com/einars/js-beautify) like: `{indent_size : 2}`, which in context looks like:
 
 ```js
 default: {
