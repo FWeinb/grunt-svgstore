@@ -114,5 +114,6 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
- * 0.0.2 Fixed npm dependencys
- * 0.0.1 Inital release
+  * 0.0.3 Added `options.formatting` to format svg via [js-beautify](https://github.com/einars/js-beautify)
+  * 0.0.2 Fixed npm dependencys
+  * 0.0.1 Inital release
