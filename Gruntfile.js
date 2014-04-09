@@ -67,6 +67,13 @@ module.exports = function(grunt) {
         files: {
           'tmp/formatting.svg': ['test/fixtures/codepen.svg']
         },
+      },
+
+      withurlref: {
+        options:{},
+        files: {
+          'tmp/withurlref.svg': ['test/fixtures/element.svg']
+        }
       }
     },
 

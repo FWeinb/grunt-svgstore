@@ -67,5 +67,15 @@ exports.svgstore = {
     test.equal(actual, expected, 'should add formatting');
 
     test.done();
+  },
+
+  with_url_ref: function(test){
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/withurlref.svg');
+    var expected = grunt.file.read('test/expected/withurlref');
+    test.equal(actual, expected, 'should keep links between id and url() intact');
+
+    test.done();
   }
 };

@@ -20,6 +20,9 @@ module.exports = function(grunt) {
     return crypto.createHash('md5').update(str).digest('hex');
   };
 
+  // Matching an url() reference. To correct references broken by making ids unquie to the source svg
+  var urlPattern = /url\(\s*#([^ ]+?)\s*\)/g;
+
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
@@ -53,10 +56,33 @@ module.exports = function(grunt) {
             uniqueId   = md5(contentStr),
             $          = cheerio.load(contentStr, { ignoreWhitespace: true, xmlMode: true });
 
+        // Map to store references from id to uniqueId + id;
+        var mappedIds = {};
+
         // Make IDs unique
         $('[id]').each(function(){
           var $elem = $(this);
-          $elem.attr('id', uniqueId + $elem.attr('id'));
+          var id = $elem.attr('id');
+          var newId = uniqueId + id;
+          mappedIds[id] = newId;
+          $elem.attr('id', newId);
+        });
+
+        // Search for an url() reference in every attribute of every tag
+        // replace the id with the unique one.
+        $('*').each(function(){
+          for ( var attr in this[0].attribs){
+            var value = this[0].attribs[attr];
+            var match;
+            while ( ( match = urlPattern.exec(value)) !== null){
+              if ( mappedIds[match[1]] !== undefined) {
+                value = value.replace(match[0], 'url(#' + mappedIds[match[1]] + ')');
+              } else {
+                grunt.log.warn('Can\'t reference to id "' + match[1] + '" from attribute "' + attr + '" in "' + this[0].name + '" because it is not defined.');
+              }
+            }
+            this[0].attribs[attr] = value;
+          }
         });
 
         var filename  = path.basename(filepath, '.svg'),
@@ -69,7 +95,6 @@ module.exports = function(grunt) {
         // Use the first element
         if ( $children.length === 1){
          resultStr =  $svg.html();
-
         } else { // Wrap the SVG in a <g>-Tag
          resultStr =  '<g>' + $svg.html() + '</g>';
         }
@@ -80,7 +105,7 @@ module.exports = function(grunt) {
         // Add ID to the first Element
         $res('*').first().attr('id', options.prefix + filename);
 
-        // Insert in resulting SVG
+        // Append to resulting SVG
         $resultDefs.append( $res.html() );
 
       });
