@@ -53,7 +53,7 @@ A string value that is used to prefix each filename to generate the id.
 Type: `Object`
 Default value: `{}`
 
-An object that is used to genreate attributes for the resulting `svg` file.
+An object that is used to generate attributes for the resulting `svg` file.
 ```js
 {
   viewBox: '0 0 100 100'
@@ -89,7 +89,7 @@ See [js-beautify](https://github.com/einars/js-beautify) for more options.
 This example will merge all elements from the `svgs` folder into the `<defs>`-Block of the `dest.svg`. You can use that SVG in HTML like:
 
 ```html
-<!-- Inlcude dest.svg -->
+<!-- Include dest.svg -->
 
 [...]
 
@@ -116,5 +116,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
   * 0.0.4 Fixed issue with referencing ids with `url()` (fix [#12](https://github.com/FWeinb/grunt-svgstore/issues/12))
   * 0.0.3 Added `options.formatting` to format svg via [js-beautify](https://github.com/einars/js-beautify)
-  * 0.0.2 Fixed npm dependencys
+  * 0.0.2 Fixed npm dependencies
   * 0.0.1 Inital release
