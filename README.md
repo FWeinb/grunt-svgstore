@@ -53,7 +53,7 @@ A string value that is used to prefix each filename to generate the id.
 Type: `Object`
 Default value: `{}`
 
-An object that is used to genreate attributes for the resulting `svg` file.
+An object that is used to generate attributes for the resulting `svg` file.
 ```js
 {
   viewBox: '0 0 100 100'
