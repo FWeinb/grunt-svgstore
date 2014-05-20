@@ -74,6 +74,15 @@ module.exports = function(grunt) {
         files: {
           'tmp/withurlref.svg': ['test/fixtures/element.svg']
         }
+      },
+
+      includedemo: {
+	options:{
+	  includedemo : true
+	},
+	files: {
+	  'tmp/includedemo.svg': ['test/fixtures/*']
+	}
       }
     },
 

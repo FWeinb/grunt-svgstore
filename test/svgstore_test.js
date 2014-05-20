@@ -32,7 +32,7 @@ exports.svgstore = {
     test.expect(1);
 
     var actual = grunt.file.read('tmp/default_options.svg');
-    var expected = grunt.file.read('test/expected/default_options');
+    var expected = grunt.file.read('test/expected/default_options.svg');
     test.equal(actual, expected, 'default options should work');
 
     test.done();
@@ -43,7 +43,7 @@ exports.svgstore = {
     test.expect(1);
 
     var actual = grunt.file.read('tmp/prefix.svg');
-    var expected = grunt.file.read('test/expected/prefix');
+    var expected = grunt.file.read('test/expected/prefix.svg');
     test.equal(actual, expected, 'should add `prefix` to each id');
 
     test.done();
@@ -53,7 +53,7 @@ exports.svgstore = {
     test.expect(1);
 
     var actual = grunt.file.read('tmp/svg_attr.svg');
-    var expected = grunt.file.read('test/expected/svg_attr');
+    var expected = grunt.file.read('test/expected/svg_attr.svg');
     test.equal(actual, expected, 'should add svg attributes');
 
     test.done();
@@ -63,7 +63,7 @@ exports.svgstore = {
     test.expect(1);
 
     var actual = grunt.file.read('tmp/formatting.svg');
-    var expected = grunt.file.read('test/expected/formatting');
+    var expected = grunt.file.read('test/expected/formatting.svg');
     test.equal(actual, expected, 'should add formatting');
 
     test.done();
@@ -73,8 +73,18 @@ exports.svgstore = {
     test.expect(1);
 
     var actual = grunt.file.read('tmp/withurlref.svg');
-    var expected = grunt.file.read('test/expected/withurlref');
+    var expected = grunt.file.read('test/expected/withurlref.svg');
     test.equal(actual, expected, 'should keep links between id and url() intact');
+
+    test.done();
+  },
+
+  with_include_demo : function(test){
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/includedemo-demo.html');
+    var expected = grunt.file.read('test/expected/includedemo-demo.html');
+    test.equal(actual, expected, 'should have created a valid demo html');
 
     test.done();
   }

@@ -10,6 +10,7 @@
 module.exports = function(grunt) {
 
   var crypto   = require('crypto'),
+      multiline= require('multiline'),
       path     = require('path'),
 
       beautify = require('js-beautify').html,
@@ -30,21 +31,27 @@ module.exports = function(grunt) {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       prefix : '',
-      svg : { },
-      formatting : false
+      svg : {
+	'xmlns' : "http://www.w3.org/2000/svg"
+      },
+      formatting : false,
+      includedemo : false
     });
 
-    this.files.forEach(function(f) {
+    this.files.forEach(function(file) {
+
       var $resultDocument = cheerio.load('<svg><defs></defs></svg>'),
           $resultSvg  = $resultDocument('svg'),
-          $resultDefs = $resultDocument('defs').first();
+	  $resultDefs = $resultDocument('defs').first(),
+	  iconNameViewBoxArray = []; // Used to store information of all icons that are added
+				     // { name : '', attribute : { 'data-viewBox' : ''}}
 
       // Merge in SVG attributes
       for ( var attr in options.svg ){
         $resultSvg.attr(attr, options.svg[attr]);
       }
 
-      f.src.filter(function(filepath) {
+      file.src.filter(function(filepath) {
         if (!grunt.file.exists(filepath)) {
           grunt.log.warn('File "' + filepath + '" not found.');
           return false;
@@ -52,9 +59,10 @@ module.exports = function(grunt) {
           return true;
         }
       }).map(function(filepath){
-        var contentStr = grunt.file.read(filepath),
+	var filename  = path.basename(filepath, '.svg'),
+	    contentStr = grunt.file.read(filepath),
             uniqueId   = md5(contentStr),
-            $          = cheerio.load(contentStr, { ignoreWhitespace: true, xmlMode: true });
+	    $          = cheerio.load(contentStr, {normalizeWhitespace : true, xmlMode: true});
 
         // Map to store references from id to uniqueId + id;
         var mappedIds = {};
@@ -71,8 +79,10 @@ module.exports = function(grunt) {
         // Search for an url() reference in every attribute of every tag
         // replace the id with the unique one.
         $('*').each(function(){
-          for ( var attr in this[0].attribs){
-            var value = this[0].attribs[attr];
+	  var $elem = $(this);
+	  var attrs = $elem.attr();
+	  Object.keys(attrs).forEach(function(key){
+	    var value = attrs[key];
             var match;
             while ( ( match = urlPattern.exec(value)) !== null){
               if ( mappedIds[match[1]] !== undefined) {
@@ -81,12 +91,11 @@ module.exports = function(grunt) {
                 grunt.log.warn('Can\'t reference to id "' + match[1] + '" from attribute "' + attr + '" in "' + this[0].name + '" because it is not defined.');
               }
             }
-            this[0].attribs[attr] = value;
-          }
+	    $elem.attr(key, value);
+	  });
         });
 
-        var filename  = path.basename(filepath, '.svg'),
-            $svg      = $('svg'),
+	var $svg      = $('svg'),
             $children = $svg.children();
 
 
@@ -102,22 +111,75 @@ module.exports = function(grunt) {
         // Create a object
         var $res = cheerio.load(resultStr);
 
+	var graphicId = options.prefix + filename;
         // Add ID to the first Element
-        $res('*').first().attr('id', options.prefix + filename);
+	$res('*').first().attr('id', graphicId);
 
         // Append to resulting SVG
-        $resultDefs.append( $res.html() );
+	$resultDefs.append( $res.xml() );
+
+	// Add icon to the demo.html array
+	if ( options.includedemo ) {
+	  iconNameViewBoxArray.push({
+	    name : graphicId,
+	    attributes : {
+	      'viewBox' : $svg.attr('viewBox')
+	    }
+	  });
+	}
 
       });
 
-      var result = options.formatting ? beautify($resultDocument.html(), options.formatting) : $resultDocument.html();
+      var result = options.formatting ? beautify($resultDocument.xml(), options.formatting) : $resultDocument.xml();
+      var destName = path.basename(file.dest, '.svg');
 
-      grunt.file.write(f.dest, result);
+      grunt.file.write(file.dest, result);
 
-      grunt.log.writeln('File ' + chalk.cyan(f.dest) + ' created.');
+      grunt.log.writeln('File ' + chalk.cyan(file.dest) + ' created.');
+
+      if ( options.includedemo ) {
+
+	$resultSvg.attr('style', 'display:none');
+
+	var demoHTML = multiline.stripIndent(function(){/*
+	      <!doctype html>
+	      <html>
+		  <head>
+		    <style>
+			svg{
+			    width:50px;
+			    height:50px;
+			    fill:black !important;
+			}
+		    </style>
+		  <head>
+		  <body>
+		    {{svg}}
+		    {{useBlock}}
+		  </body>
+	      </html>
+	*/});
+
+	var useBlock = '';
+	iconNameViewBoxArray.forEach(function(item){
+	  var attrStr = '';
+
+	  Object.keys(item.attributes).forEach(function(key){
+	    attrStr += ' ' +key+'="'+item.attributes[key]+'"';
+	  });
+
+	  useBlock += '\t\t<svg'+attrStr+'>\n\t\t\t<use xlink:href="#'+ item.name +'"></use>\n\t\t</svg>\n';
+	});
+
+	demoHTML = demoHTML.replace('{{svg}}', $resultDocument.xml());
+	demoHTML = demoHTML.replace('{{useBlock}}', useBlock);
+
+	var demoPath = path.resolve(path.dirname(file.dest),  destName + '-demo.html' );
+	grunt.file.write(demoPath, demoHTML);
+	grunt.log.writeln('Demo file ' + chalk.cyan(demoPath) + ' created.');
+      }
 
     });
-
 
   });
 

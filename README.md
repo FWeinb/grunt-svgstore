@@ -66,8 +66,8 @@ will result in:
 [...]
 ```
 
-#### options.formatting
-Type: `Object` or `false`
+#### options.formatting (since 0.0.4)
+Type: `Object` or `boolean`
 Default value: `false`
 
 Formatting options for generated code.
@@ -83,6 +83,12 @@ default: {
   }
 ```
 See [js-beautify](https://github.com/einars/js-beautify) for more options.
+
+#### options.includedemo (since 0.1.0)
+Type: `boolean`
+Default value: `false`
+
+This will include a demo HTML (named like `destName + -demo.html`) from where you can copy your `<use>` blocks.
 
 ### Usage Examples
 
@@ -113,7 +119,7 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-
+  * 0.1.0 Always add `xmlns` namspace. Added the `includedemo` option. Fixed Issues [#20](https://github.com/FWeinb/grunt-svgstore/issues/20), [#19](https://github.com/FWeinb/grunt-svgstore/issues/19), [#18](https://github.com/FWeinb/grunt-svgstore/issues/18)
   * 0.0.4 Fixed issue with referencing ids with `url()` (fix [#12](https://github.com/FWeinb/grunt-svgstore/issues/12))
   * 0.0.3 Added `options.formatting` to format svg via [js-beautify](https://github.com/einars/js-beautify)
   * 0.0.2 Fixed npm dependencies
