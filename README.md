@@ -119,8 +119,26 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-  * 0.1.0 Always add `xmlns` namspace. Added the `includedemo` option. Fixed Issues [#20](https://github.com/FWeinb/grunt-svgstore/issues/20), [#19](https://github.com/FWeinb/grunt-svgstore/issues/19), [#18](https://github.com/FWeinb/grunt-svgstore/issues/18)
-  * 0.0.4 Fixed issue with referencing ids with `url()` (fix [#12](https://github.com/FWeinb/grunt-svgstore/issues/12))
-  * 0.0.3 Added `options.formatting` to format svg via [js-beautify](https://github.com/einars/js-beautify)
-  * 0.0.2 Fixed npm dependencies
-  * 0.0.1 Inital release
+
+#### 0.2.0
+  * Use a `<symbol>`-tag for representing icons (See [TxHawks Comment](https://github.com/FWeinb/grunt-svgstore/issues/16#issuecomment-43786059).)
+  * Write the `viewBox`, `title` and `desc` attributes for the `svg`-tag to the `<symbol>`.
+  * use 'filename' as a fallback for `title`
+  * Fix issue [#1](https://github.com/FWeinb/grunt-svgstore/issues/1)
+
+#### 0.1.0
+  * Always add `xmlns` namspace.
+  * Added the `includedemo` option.
+  * Fixed Issues [#20](https://github.com/FWeinb/grunt-svgstore/issues/20), [#19](https://github.com/FWeinb/grunt-svgstore/issues/19), [#18](https://github.com/FWeinb/grunt-svgstore/issues/18)
+
+#### 0.0.4
+  * Fixed issue with referencing ids with `url()` (fix [#12](https://github.com/FWeinb/grunt-svgstore/issues/12))
+
+#### 0.0.3
+  * Added `options.formatting` to format svg via [js-beautify](https://github.com/einars/js-beautify)
+
+#### 0.0.2
+  * Fixed npm dependencies
+
+#### 0.0.1
+  * Inital release

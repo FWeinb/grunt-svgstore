@@ -77,12 +77,12 @@ module.exports = function(grunt) {
       },
 
       includedemo: {
-	options:{
-	  includedemo : true
-	},
-	files: {
-	  'tmp/includedemo.svg': ['test/fixtures/*']
-	}
+        options:{
+          includedemo : true
+        },
+        files: {
+          'tmp/includedemo.svg': ['test/fixtures/*']
+        }
       }
     },
 
