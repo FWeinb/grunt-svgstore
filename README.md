@@ -122,7 +122,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 #### 0.2.0
   * Use a `<symbol>`-tag for representing icons (See [TxHawks Comment](https://github.com/FWeinb/grunt-svgstore/issues/16#issuecomment-43786059).)
-  * Write the `viewBox`, `title` and `desc` attributes for the `svg`-tag to the `<symbol>`.
+  * Write the `viewBox` attribute to the `<symbol>`-tag,
+  * Include `title` and `desc` elements in the generated svg for each `<symbol>`
   * use 'filename' as a fallback for `title`
   * Fix issue [#1](https://github.com/FWeinb/grunt-svgstore/issues/1)
 
