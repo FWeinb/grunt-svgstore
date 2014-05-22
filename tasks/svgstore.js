@@ -144,8 +144,8 @@ module.exports = function (grunt) {
                 // Add ID to the first Element
                 $res('*').first().attr('id', graphicId);
 
-                // Append to resulting SVG
-                $resultDefs.append($res.xml());
+                // Append <symbol> to resulting SVG
+                $resultSvg.append($res.xml());
 
 
                 // Add icon to the demo.html array
@@ -159,6 +159,11 @@ module.exports = function (grunt) {
                 }
 
             });
+
+            // remove defs block if empty
+            if ( $resultDefs.html().trim() === '' ) {
+              $resultDefs.remove();
+            }
 
             var result = options.formatting ? beautify($resultDocument.xml(), options.formatting) : $resultDocument.xml();
             var destName = path.basename(file.dest, '.svg');
