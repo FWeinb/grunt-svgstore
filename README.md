@@ -120,6 +120,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+#### 0.2.2
+  * Fixed a bug where self-closing elements where nested.
+
 #### 0.2.1
   * Move `<symbol>`-tag out of `<defs>`-tag (see the [spec](http://www.w3.org/TR/SVG11/struct.html#SymbolElement))
   * Only create `<defs>`-tag if needed (e.g.  `<linearGradient>` is used)

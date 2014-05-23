@@ -1,7 +1,7 @@
 {
   "name": "grunt-svgstore",
   "description": "Merge SVGs from a folder.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "https://github.com/FWeinb/grunt-svgstore",
   "author": {
     "name": "Fabrice Weinberg",
