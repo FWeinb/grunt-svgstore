@@ -145,7 +145,7 @@ module.exports = function (grunt) {
                 $res('*').first().attr('id', graphicId);
 
                 // Append <symbol> to resulting SVG
-                $resultSvg.append($res.xml());
+                $resultSvg.append($res.html());
 
 
                 // Add icon to the demo.html array
