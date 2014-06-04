@@ -120,6 +120,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+#### 0.2.3
+  * Fixed lower case `viewBox` in outputted svg (fix [#26](https://github.com/FWeinb/grunt-svgstore/issues/26))
+
 #### 0.2.2
   * Fixed a bug where self-closing elements where nested.
 

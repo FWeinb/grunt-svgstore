@@ -7,16 +7,6 @@
  */
 'use strict';
 
-var genAttrStr = function ( attrs, allowed ) {
-  var result = '';
-  Object.keys(attrs).forEach(function (key) {
-    if ( allowed === undefined || allowed.indexOf(key) >= 0 ) {
-      result += ' ' + key + '="' + attrs[key] + '"';
-    }
-  });
-  return result;
-};
-
 module.exports = function (grunt) {
 
     var crypto = require('crypto');
@@ -50,11 +40,11 @@ module.exports = function (grunt) {
 
         this.files.forEach(function (file) {
 
-            var $resultDocument = cheerio.load('<svg><defs></defs></svg>'),
+            var $resultDocument = cheerio.load('<svg><defs></defs></svg>', { lowerCaseAttributeNames : false }),
                 $resultSvg = $resultDocument('svg'),
                 $resultDefs = $resultDocument('defs').first(),
                 iconNameViewBoxArray = [];  // Used to store information of all icons that are added
-                                            // { name : '', attribute : { 'data-viewBox' : ''}}
+                                            // { name : '' }
 
             // Merge in SVG attributes from option
             for (var attr in options.svg) {
@@ -112,9 +102,6 @@ module.exports = function (grunt) {
                 var $title = $('title');
                 var $desc = $('desc');
                 var $def = $('defs').first();
-                var attr = $svg.attr();
-
-                var attrStr = genAttrStr(attr, ['viewBox']);
 
                 // merge in the defs from this svg in the result defs block.
                 $resultDefs.append($def.html());
@@ -130,7 +117,7 @@ module.exports = function (grunt) {
                 // If there is no title use the filename
                 title = title || filename;
 
-                var resultStr = '<symbol'+attrStr+'>' + '<title>' + title + '</title>';
+                var resultStr = '<symbol>' + '<title>' + title + '</title>';
 
                 // Only add desc if it was set
                 if ( desc ) {  resultStr +='<desc>'+ desc +'</desc>';  }
@@ -138,7 +125,9 @@ module.exports = function (grunt) {
                 resultStr += $svg.html() + '</symbol>';
 
                 // Create a object
-                var $res = cheerio.load(resultStr);
+                var $res = cheerio.load(resultStr, { lowerCaseAttributeNames : false });
+
+                $res('symbol').attr('viewBox', $svg.attr('viewBox'));
 
                 var graphicId = options.prefix + filename;
                 // Add ID to the first Element
@@ -151,10 +140,7 @@ module.exports = function (grunt) {
                 // Add icon to the demo.html array
                 if (options.includedemo) {
                     iconNameViewBoxArray.push({
-                        name: graphicId,
-                        attributes: {
-                            'viewBox': $svg.attr('viewBox')
-                        }
+                        name: graphicId
                     });
                 }
 
@@ -197,7 +183,6 @@ module.exports = function (grunt) {
 
                 var useBlock = '';
                 iconNameViewBoxArray.forEach(function (item) {
-                    //var attrStr = genAttrStr(item.attributes);
                     useBlock += '\t\t<svg>\n\t\t\t<use xlink:href="#' + item.name + '"></use>\n\t\t</svg>\n';
                 });
 
