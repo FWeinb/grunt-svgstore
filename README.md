@@ -66,6 +66,13 @@ will result in:
 [...]
 ```
 
+#### options.symbol (since 0.2.4)
+Type: `Object`
+Default value: `{}`
+
+Just like `options.svg` but will add attributes to each generated `<symbol>`.
+
+
 #### options.formatting (since 0.0.4)
 Type: `Object` or `boolean`
 Default value: `false`
