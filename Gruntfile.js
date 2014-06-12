@@ -92,7 +92,14 @@ module.exports = function(grunt) {
           includedemo : true
         },
         files: {
-          'tmp/includedemo.svg': ['test/fixtures/*']
+          'tmp/includedemo.svg': ['test/fixtures/*.svg']
+        }
+      },
+
+      cutNameAfterFirstDot: {
+        options:{},
+        files: {
+          'tmp/cutnameafterfirstdot.svg': ['test/fixtures/naming/*']
         }
       }
     },

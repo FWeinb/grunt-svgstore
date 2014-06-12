@@ -31,6 +31,14 @@ module.exports = function (grunt) {
         return result;
     };
 
+    var convertNameToId = function( name ){
+      var dotPos = name.indexOf('.');
+      if ( dotPos > -1){
+        name = name.substring(0, dotPos);
+      }
+      return name;
+    };
+
     // Matching an url() reference. To correct references broken by making ids unquie to the source svg
     var urlPattern = /url\(\s*#([^ ]+?)\s*\)/g;
 
@@ -142,7 +150,7 @@ module.exports = function (grunt) {
 
                 $res('symbol').attr('viewBox', $svg.attr('viewBox'));
 
-                var graphicId = options.prefix + filename;
+                var graphicId = options.prefix + convertNameToId(filename);
                 // Add ID to the first Element
                 $res('*').first().attr('id', graphicId);
 

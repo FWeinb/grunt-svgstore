@@ -98,5 +98,15 @@ exports.svgstore = {
     test.equal(actual, expected, 'should have created a valid demo html');
 
     test.done();
+  },
+
+  cutNameAfterFirstDot : function(test){
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/cutnameafterfirstdot.svg');
+    var expected = grunt.file.read('test/expected/cutnameafterfirstdot.svg');
+    test.equal(actual, expected, 'Name should be cut after the first dot');
+
+    test.done();
   }
 };
