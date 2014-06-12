@@ -127,6 +127,10 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+#### 0.2.4
+  * Added `options.symbol` to add attributes to generated `<symbol>`s ([#30](https://github.com/FWeinb/grunt-svgstore/pull/30))
+  * To generate the id from the filename the name is now cut right before the first dot. `name.min.svg` becomes `name`. (Fixes [#29](https://github.com/FWeinb/grunt-svgstore/issues/29))
+
 #### 0.2.3
   * Fixed lower case `viewBox` in outputted svg (fix [#26](https://github.com/FWeinb/grunt-svgstore/issues/26))
 
