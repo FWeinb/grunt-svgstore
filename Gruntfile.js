@@ -58,6 +58,17 @@ module.exports = function(grunt) {
         }
       },
 
+      symbolattr: {
+        options:{
+          symbol: {
+            preserveAspectRatio: 'xMinYMin slice'
+          }
+        },
+        files: {
+          'tmp/symbol_attr.svg': ['test/fixtures/codepen.svg']
+        }
+      },
+
       formatting: {
         options: {
           formatting : {

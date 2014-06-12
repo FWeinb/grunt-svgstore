@@ -21,6 +21,16 @@ module.exports = function (grunt) {
         return crypto.createHash('md5').update(str).digest('hex');
     };
 
+    var symbolAttributes = function(attrs){
+        if(typeof attrs === 'undefined') {return '';}
+
+        var result = '';
+        Object.keys(attrs).forEach(function (key) {
+            result += ' ' + key + '="' + attrs[key] + '"';
+        });
+        return result;
+    };
+
     // Matching an url() reference. To correct references broken by making ids unquie to the source svg
     var urlPattern = /url\(\s*#([^ ]+?)\s*\)/g;
 
@@ -35,8 +45,11 @@ module.exports = function (grunt) {
                 'xmlns': "http://www.w3.org/2000/svg"
             },
             formatting: false,
-            includedemo: false
+            includedemo: false,
+            symbol: {}
         });
+
+        var symbolAttrs =  symbolAttributes(options.symbol);
 
         this.files.forEach(function (file) {
 
@@ -117,7 +130,7 @@ module.exports = function (grunt) {
                 // If there is no title use the filename
                 title = title || filename;
 
-                var resultStr = '<symbol>' + '<title>' + title + '</title>';
+                var resultStr = '<symbol' + symbolAttrs + '>' + '<title>' + title + '</title>';
 
                 // Only add desc if it was set
                 if ( desc ) {  resultStr +='<desc>'+ desc +'</desc>';  }

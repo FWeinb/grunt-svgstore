@@ -59,6 +59,17 @@ exports.svgstore = {
     test.done();
   },
 
+  with_symbol_attr: function(test){
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/symbol_attr.svg');
+    var expected = grunt.file.read('test/expected/symbol_attr.svg');
+    test.equal(actual, expected, 'should add attributes in every merged svg-object (currently symbol-tag)');
+
+     test.done();
+  },
+
+
   with_formatting: function(test){
     test.expect(1);
 
