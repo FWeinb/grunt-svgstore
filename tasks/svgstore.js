@@ -135,8 +135,10 @@ module.exports = function (grunt) {
                 $title.remove();
                 $desc.remove();
 
+                var id = convertNameToId(filename);
+
                 // If there is no title use the filename
-                title = title || filename;
+                title = title || id;
 
                 var resultStr = '<symbol' + symbolAttrs + '>' + '<title>' + title + '</title>';
 
@@ -150,7 +152,7 @@ module.exports = function (grunt) {
 
                 $res('symbol').attr('viewBox', $svg.attr('viewBox'));
 
-                var graphicId = options.prefix + convertNameToId(filename);
+                var graphicId = options.prefix + id;
                 // Add ID to the first Element
                 $res('*').first().attr('id', graphicId);
 
