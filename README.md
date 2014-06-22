@@ -97,6 +97,12 @@ Default value: `false`
 
 This will include a demo HTML (named like `destName + -demo.html`) from where you can copy your `<use>` blocks.
 
+#### options.cleanup
+Type: `boolean`
+Default value: `false`
+
+Clean up all inline style definitions that may jeopardise later stylesheet-based colouring (`fill`).
+
 ### Usage Examples
 
 This example will merge all elements from the `svgs` folder into the `<defs>`-Block of the `dest.svg`. You can use that SVG in HTML like:
