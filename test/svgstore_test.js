@@ -90,6 +90,16 @@ exports.svgstore = {
     test.done();
   },
 
+  withCleanup: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/cleanup.svg');
+    var expected = grunt.file.read('test/expected/cleanup.svg');
+    test.equal(actual, expected, 'All path inline style attributes should be removed');
+
+    test.done();
+  },
+
   with_include_demo : function(test){
     test.expect(1);
 
@@ -109,4 +119,5 @@ exports.svgstore = {
 
     test.done();
   }
+
 };

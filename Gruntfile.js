@@ -101,6 +101,15 @@ module.exports = function(grunt) {
         files: {
           'tmp/cutnameafterfirstdot.svg': ['test/fixtures/naming/*']
         }
+      },
+
+      cleanup: {
+        options: {
+          cleanup: true
+        },
+        files: {
+          'tmp/cleanup.svg': ['test/fixtures/cleanup.svg']
+        }
       }
     },
 
