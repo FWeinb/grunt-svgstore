@@ -115,10 +115,10 @@ module.exports = function (grunt) {
                                 grunt.log.warn('Can\'t reference to id "' + match[1] + '" from attribute "' + attr + '" in "' + this[0].name + '" because it is not defined.');
                             }
                         }
-												if (options.cleanup && key === 'style') {
-														value = null;
-												}
-												$elem.attr(key, value);
+                        if (options.cleanup && key === 'style') {
+                          value = null;
+                        }
+                        $elem.attr(key, value);
                     });
                 });
 
