@@ -97,7 +97,7 @@ Default value: `false`
 
 This will include a demo HTML (named like `destName + -demo.html`) from where you can copy your `<use>` blocks.
 
-#### options.cleanup
+#### options.cleanup (since 0.2.6)
 Type: `boolean`
 Default value: `false`
 
@@ -132,6 +132,10 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+
+#### 0.2.6
+  * Add `options.clean` to remove inline styles from source svgs. (Thanks to [ain](https://github.com/FWeinb/grunt-svgstore/pull/37))
+  * Reformat source to use 2 spaces for indentation (Fix [#36](https://github.com/FWeinb/grunt-svgstore/issues/36))
 
 #### 0.2.5
   * To generate the id from the filename is now used as a title. (Fix [#33](https://github.com/FWeinb/grunt-svgstore/issues/33))
