@@ -133,6 +133,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+#### 0.2.7
+  * Don't generate IDs that start with a number by prefixing them with `svgstore`. (Thanks to [#38](https://github.com/FWeinb/grunt-svgstore/pull/38))
+
 #### 0.2.6
   * Add `options.clean` to remove inline styles from source svgs. (Thanks to [ain](https://github.com/FWeinb/grunt-svgstore/pull/37))
   * Reformat source to use 2 spaces for indentation (Fix [#36](https://github.com/FWeinb/grunt-svgstore/issues/36))
