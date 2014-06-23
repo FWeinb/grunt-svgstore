@@ -93,7 +93,7 @@ module.exports = function (grunt) {
         $('[id]').each(function () {
           var $elem = $(this);
           var id = $elem.attr('id');
-          var newId = uniqueId + id;
+          var newId = 'svgstore' + uniqueId + id;
           mappedIds[id] = newId;
           $elem.attr('id', newId);
         });
