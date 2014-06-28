@@ -148,6 +148,12 @@ module.exports = function(grunt) {
         files: {
           'tmp/defs_clean.svg': ['test/fixtures/usingdef.svg']
         }
+      },
+
+      removeemptyg: {
+        files: {
+          'tmp/no_empty_g.svg': ['test/fixtures/scissors.svg']
+        }
       }
 
     },

@@ -158,6 +158,16 @@ exports.svgstore = {
     test.equal(actual, expected, 'All style attributes inside <defs> should be removed');
 
     test.done();
+  },
+
+  remove_emptyg: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/no_empty_g.svg');
+    var expected = grunt.file.read('test/expected/no_empty_g.svg');
+    test.equal(actual, expected, 'All empty g elements should be removed');
+
+    test.done();
   }
 
 };

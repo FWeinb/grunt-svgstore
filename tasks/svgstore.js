@@ -82,6 +82,14 @@ module.exports = function (grunt) {
               xmlMode: true
             });
 
+        // Remove empty g elements
+        $('g').each(function(){
+          var $elem = $(this);
+          if (!$elem.children().length) {
+            $elem.remove();
+          }
+        });
+
         // Map to store references from id to uniqueId + id;
         // N.B.: only IDs that are referenced are mapped.
         var mappedIds = {};
