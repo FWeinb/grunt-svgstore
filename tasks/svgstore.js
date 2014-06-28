@@ -68,26 +68,14 @@ module.exports = function (grunt) {
       }).map(function (filepath) {
         var filename = path.basename(filepath, '.svg');
         var contentStr = grunt.file.read(filepath);
-        var uniqueId = md5(contentStr);
         var $ = cheerio.load(contentStr, {
               normalizeWhitespace: true,
               xmlMode: true
             });
 
         // Map to store references from id to uniqueId + id;
+        // N.B.: only IDs that are referenced are mapped.
         var mappedIds = {};
-
-        // Make IDs unique
-        $('[id]').each(function () {
-          var $elem = $(this);
-          var id = $elem.attr('id');
-          var newId = 'svgstore' + uniqueId + id;
-          mappedIds[id] = newId;
-          $elem.attr('id', newId);
-        });
-
-        // Search for an url() reference in every attribute of every tag
-        // replace the id with the unique one.
         $('*').each(function () {
           var $elem = $(this);
           var attrs = $elem.attr();
@@ -95,17 +83,36 @@ module.exports = function (grunt) {
             var value = attrs[key];
             var match;
             while ((match = urlPattern.exec(value)) !== null) {
-              if (mappedIds[match[1]] !== undefined) {
-                value = value.replace(match[0], 'url(#' + mappedIds[match[1]] + ')');
-              } else {
-                grunt.log.warn('Can\'t reference to id "' + match[1] + '" from attribute "' + attr + '" in "' + this[0].name + '" because it is not defined.');
+              var refId = match[1];
+
+              // Add id mapping if not already present
+              if (!mappedIds[refId]) {
+                var uniqueId = md5(contentStr);
+                var newId = 'svgstore' + uniqueId + refId;
+                mappedIds[refId] = newId;
               }
+
+              $elem.attr(key, value.replace(match[0], 'url(#' + mappedIds[refId] + ')'));
             }
+
             if (options.cleanup && key === 'style') {
-              value = null;
+              $elem.removeAttr(key);
             }
-            $elem.attr(key, value);
           });
+        });
+
+        // Apply ID mapping and remove unreferenced IDs
+        $('[id]').each(function () {
+          var $elem = $(this);
+          var id = $elem.attr('id');
+          var newId = mappedIds[id];
+          if (!newId) {
+            // ID is not refenced and can therefore be removed
+            $elem.removeAttr('id');
+          } else {
+            // Replace id by mapped id
+            $elem.attr('id', newId);
+          }
         });
 
         var $svg = $('svg');
@@ -150,7 +157,7 @@ module.exports = function (grunt) {
           $symbol.prepend('<title>' + title + '</title>');
         }
 
-        // Add viewBox (if present of SVG)
+        // Add viewBox (if present on SVG)
         var viewBox = $svg.attr('viewBox');
         if (viewBox) {
           $symbol.attr('viewBox', viewBox);
