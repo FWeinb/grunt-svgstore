@@ -118,6 +118,14 @@ exports.svgstore = {
     test.equal(actual, expected, 'Name should be cut after the first dot');
 
     test.done();
-  }
+  },
 
-};
+  remove_unreferenced_ids: function(test){
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/no_unref_ids.svg');
+    var expected = grunt.file.read('test/expected/no_unref_ids.svg');
+    test.equal(actual, expected, 'Remove unreferenced IDs');
+
+    test.done();
+  }};
