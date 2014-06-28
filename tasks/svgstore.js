@@ -20,16 +20,6 @@ module.exports = function (grunt) {
     return crypto.createHash('md5').update(str).digest('hex');
   };
 
-  var symbolAttributes = function(attrs){
-    if (typeof attrs === 'undefined') {return '';}
-
-    var result = '';
-    Object.keys(attrs).forEach(function (key) {
-      result += ' ' + key + '="' + attrs[key] + '"';
-    });
-    return result;
-  };
-
   var convertNameToId = function( name ){
     var dotPos = name.indexOf('.');
     if ( dotPos > -1){
@@ -55,8 +45,6 @@ module.exports = function (grunt) {
       includedemo: false,
       symbol: {}
     });
-
-    var symbolAttrs =  symbolAttributes(options.symbol);
 
     this.files.forEach(function (file) {
       var $resultDocument = cheerio.load('<svg><defs></defs></svg>', { lowerCaseAttributeNames : false }),
@@ -124,9 +112,12 @@ module.exports = function (grunt) {
         var $title = $('title');
         var $desc = $('desc');
         var $def = $('defs').first();
+        var defContent = $def.length && $def.html();
 
         // Merge in the defs from this svg in the result defs block
-        $resultDefs.append($def.html());
+        if (defContent) {
+          $resultDefs.append(defContent);
+        }
 
         var title = $title.first().html();
         var desc = $desc.first().html();
@@ -141,25 +132,36 @@ module.exports = function (grunt) {
         // If there is no title use the filename
         title = title || id;
 
-        var resultStr = '<symbol' + symbolAttrs + '>' + '<title>' + title + '</title>';
+        // Generate symbol
+        var $res = cheerio.load('<symbol>' + $svg.html() + '</symbol>', { lowerCaseAttributeNames: false });
+        var $symbol = $res('symbol').first();
 
-        // Only add desc if it was set
-        if ( desc ) {  resultStr +='<desc>'+ desc +'</desc>';  }
+        // Merge in symbol attributes from option
+        for (var attr in options.symbol) {
+          $symbol.attr(attr, options.symbol[attr]);
+        }
 
-        resultStr += $svg.html() + '</symbol>';
+        // Add title and desc (if provided)
+        if (desc) {
+          $symbol.prepend('<desc>' + desc + '</desc>');
+        }
 
-        // Create a object
-        var $res = cheerio.load(resultStr, { lowerCaseAttributeNames : false });
+        if (title) {
+          $symbol.prepend('<title>' + title + '</title>');
+        }
 
-        $res('symbol').attr('viewBox', $svg.attr('viewBox'));
+        // Add viewBox (if present of SVG)
+        var viewBox = $svg.attr('viewBox');
+        if (viewBox) {
+          $symbol.attr('viewBox', viewBox);
+        }
 
+        // Add ID to symbol
         var graphicId = options.prefix + id;
-        // Add ID to the first element
-        $res('*').first().attr('id', graphicId);
+        $symbol.attr('id', graphicId);
 
         // Append <symbol> to resulting SVG
         $resultSvg.append($res.html());
-
 
         // Add icon to the demo.html array
         if (options.includedemo) {
