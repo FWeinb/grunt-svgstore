@@ -38,7 +38,7 @@ module.exports = function (grunt) {
     return name;
   };
 
-  // Matching an url() reference. To correct references broken by making ids unquie to the source svg
+  // Matching an url() reference. To correct references broken by making ids unique to the source svg
   var urlPattern = /url\(\s*#([^ ]+?)\s*\)/g;
 
   // Please see the Grunt documentation for more information regarding task
@@ -125,13 +125,13 @@ module.exports = function (grunt) {
         var $desc = $('desc');
         var $def = $('defs').first();
 
-        // merge in the defs from this svg in the result defs block.
+        // Merge in the defs from this svg in the result defs block
         $resultDefs.append($def.html());
 
         var title = $title.first().html();
         var desc = $desc.first().html();
 
-        // remove def, title, desc from this svg
+        // Remove def, title, desc from this svg
         $def.remove();
         $title.remove();
         $desc.remove();
@@ -154,7 +154,7 @@ module.exports = function (grunt) {
         $res('symbol').attr('viewBox', $svg.attr('viewBox'));
 
         var graphicId = options.prefix + id;
-        // Add ID to the first Element
+        // Add ID to the first element
         $res('*').first().attr('id', graphicId);
 
         // Append <symbol> to resulting SVG
@@ -169,7 +169,7 @@ module.exports = function (grunt) {
         }
       });
 
-      // remove defs block if empty
+      // Remove defs block if empty
       if ( $resultDefs.html().trim() === '' ) {
         $resultDefs.remove();
       }
