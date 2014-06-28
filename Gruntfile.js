@@ -114,12 +114,42 @@ module.exports = function(grunt) {
 
       removeunreferencedids: {
         options: {
-          cleanup: true
+          cleanup: true,
+          cleanupdefs: true
         },
         files: {
           'tmp/no_unref_ids.svg': ['test/fixtures/usingdef.svg']
         }
+      },
+
+      cleanupfill: {
+        options: {
+          cleanup: ['fill']
+        },
+        files: {
+          'tmp/cleanup_fill.svg': ['test/fixtures/dribbble.svg']
+        }
+      },
+
+      nocleandefs: {
+        options: {
+          cleanup: ['style']
+        },
+        files: {
+          'tmp/defs_noclean.svg': ['test/fixtures/usingdef.svg']
+        }
+      },
+
+      cleandefs: {
+        options: {
+          cleanup: ['style'],
+          cleanupdefs: true
+        },
+        files: {
+          'tmp/defs_clean.svg': ['test/fixtures/usingdef.svg']
+        }
       }
+
     },
 
     // Unit tests.

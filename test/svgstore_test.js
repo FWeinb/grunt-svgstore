@@ -128,4 +128,36 @@ exports.svgstore = {
     test.equal(actual, expected, 'Remove unreferenced IDs');
 
     test.done();
-  }};
+  },
+
+  with_cleanup_fill: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/cleanup_fill.svg');
+    var expected = grunt.file.read('test/expected/cleanup_fill.svg');
+    test.equal(actual, expected, 'All fill attributes should be removed');
+
+    test.done();
+  },
+
+  with_cleanupdefs: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/defs_clean.svg');
+    var expected = grunt.file.read('test/expected/defs_clean.svg');
+    test.equal(actual, expected, 'All style attributes inside <defs> should be removed');
+
+    test.done();
+  },
+
+  without_cleanupdefs: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/defs_noclean.svg');
+    var expected = grunt.file.read('test/expected/defs_noclean.svg');
+    test.equal(actual, expected, 'All style attributes inside <defs> should be removed');
+
+    test.done();
+  }
+
+};
