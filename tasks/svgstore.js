@@ -76,6 +76,7 @@ module.exports = function (grunt) {
         // Map to store references from id to uniqueId + id;
         // N.B.: only IDs that are referenced are mapped.
         var mappedIds = {};
+        var uniqueId;
         $('*').each(function () {
           var $elem = $(this);
           var attrs = $elem.attr();
@@ -87,7 +88,9 @@ module.exports = function (grunt) {
 
               // Add id mapping if not already present
               if (!mappedIds[refId]) {
-                var uniqueId = md5(contentStr);
+                if (!uniqueId) {
+                  uniqueId = md5(contentStr);
+                }
                 var newId = 'svgstore' + uniqueId + refId;
                 mappedIds[refId] = newId;
               }
