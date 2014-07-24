@@ -110,6 +110,15 @@ module.exports = function(grunt) {
         files: {
           'tmp/cleanup.svg': ['test/fixtures/cleanup.svg']
         }
+      },
+
+      removeunreferencedids: {
+        options: {
+          cleanup: true
+        },
+        files: {
+          'tmp/no_unref_ids.svg': ['test/fixtures/usingdef.svg']
+        }
       }
     },
 

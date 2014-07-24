@@ -5,5 +5,5 @@
       <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
     </linearGradient>
   </defs>
-  <ellipse cx="50%" cy="50%" rx="50%" ry="25%" fill="url(#grad1)" />
+  <ellipse cx="50%" cy="50%" rx="50%" ry="25%" fill="url(#grad1)" id="myellipse" />
 </svg>
