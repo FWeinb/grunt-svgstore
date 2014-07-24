@@ -43,8 +43,17 @@ module.exports = function (grunt) {
       },
       formatting: false,
       includedemo: false,
-      symbol: {}
+      symbol: {},
+      cleanupdefs: false
     });
+
+    var cleanupAttributes = [];
+    if (options.cleanup && typeof options.cleanup === 'boolean') {
+      // For backwards compatibility (introduced in 0.2.6).
+      cleanupAttributes = ['style'];
+    } else if (Array.isArray(options.cleanup)){
+      cleanupAttributes = options.cleanup;
+    }
 
     this.files.forEach(function (file) {
       var $resultDocument = cheerio.load('<svg><defs></defs></svg>', { lowerCaseAttributeNames : false }),
@@ -73,6 +82,14 @@ module.exports = function (grunt) {
               xmlMode: true
             });
 
+        // Remove empty g elements
+        $('g').each(function(){
+          var $elem = $(this);
+          if (!$elem.children().length) {
+            $elem.remove();
+          }
+        });
+
         // Map to store references from id to uniqueId + id;
         // N.B.: only IDs that are referenced are mapped.
         var mappedIds = {};
@@ -98,8 +115,10 @@ module.exports = function (grunt) {
               $elem.attr(key, value.replace(match[0], 'url(#' + mappedIds[refId] + ')'));
             }
 
-            if (options.cleanup && key === 'style') {
-              $elem.removeAttr(key);
+            if (options.cleanupdefs || !$elem.parents('defs').length) {
+              if (cleanupAttributes.indexOf(key) > -1){
+                $elem.removeAttr(key);
+              }
             }
           });
         });
