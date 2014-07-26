@@ -98,10 +98,12 @@ Default value: `false`
 This will include a demo HTML (named like `destName + -demo.html`) from where you can copy your `<use>` blocks.
 
 #### options.cleanup (since 0.2.6)
-Type: `boolean`  
+Type: `boolean`  or `Array`
 Default value: `false`  
 
 Clean up all inline style definitions that may jeopardise later stylesheet-based colouring (`fill`).
+Apart from true / false, the value of this property can be an array of attributes. 
+All attributes in the array are removed from all elements in the SVG.
 
 #### options.cleanupdefs (since 0.3.0)
 Type: `boolean`  
@@ -144,10 +146,10 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 #### 0.3.0
 
-  * Changed the way ID are collected; unreferenced IDs are removed now in order to save space. ([#40](https://github.com/FWeinb/grunt-svgstore/pull/40)
-  * Changed the behavior of the 'cleanup'-option (introduced in 0.2.6). Apart from true / false, the value of this property can now be an array of attributes. All attributes in the array are removed from all elements in the SVG. ([#41](https://github.com/FWeinb/grunt-svgstore/pull/41)
-  * Added an option 'cleanupdefs' (default: false). When set to false, no cleanup is performed on the <defs> element. ([#41](https://github.com/FWeinb/grunt-svgstore/pull/41)
-  * Empty g elements are removed since they have no effect in a document. ([#42](https://github.com/FWeinb/grunt-svgstore/pull/42)
+  * Changed the way ID are collected; unreferenced IDs are removed now in order to save space. ([#40](https://github.com/FWeinb/grunt-svgstore/pull/40))
+  * Changed the behavior of the 'cleanup'-option (introduced in 0.2.6). Apart from true / false, the value of this property can now be an array of attributes. All attributes in the array are removed from all elements in the SVG. ([#41](https://github.com/FWeinb/grunt-svgstore/pull/41))
+  * Added an option 'cleanupdefs' (default: false). When set to false, no cleanup is performed on the <defs> element. ([#41](https://github.com/FWeinb/grunt-svgstore/pull/41))
+  * Empty g elements are removed since they have no effect in a document. ([#42](https://github.com/FWeinb/grunt-svgstore/pull/42))
   
 Thanks to [Frank3K](https://github.com/Frank3K) for the PRs
 
