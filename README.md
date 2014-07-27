@@ -3,7 +3,7 @@
 > Merge SVGs from a folder.
 
 ## Why?
-Because [Chris Coyer](http://shoptalkshow.com/episodes/103-louis-lazaris/#t=33:52) asked.
+Because [Chris Coyier](http://shoptalkshow.com/episodes/103-louis-lazaris/#t=33:52) asked.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
@@ -109,7 +109,7 @@ All attributes in the array are removed from all elements in the SVG.
 Type: `boolean`  
 Default value: `false`  
 
-When set to false, no cleanup is performed on the <defs> element. (#41)
+When set to false, no cleanup is performed on the `<defs>` element.
 
 
 
@@ -148,8 +148,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
   * Changed the way ID are collected; unreferenced IDs are removed now in order to save space. ([#40](https://github.com/FWeinb/grunt-svgstore/pull/40))
   * Changed the behavior of the 'cleanup'-option (introduced in 0.2.6). Apart from true / false, the value of this property can now be an array of attributes. All attributes in the array are removed from all elements in the SVG. ([#41](https://github.com/FWeinb/grunt-svgstore/pull/41))
-  * Added an option 'cleanupdefs' (default: false). When set to false, no cleanup is performed on the <defs> element. ([#41](https://github.com/FWeinb/grunt-svgstore/pull/41))
-  * Empty g elements are removed since they have no effect in a document. ([#42](https://github.com/FWeinb/grunt-svgstore/pull/42))
+  * Added an option 'cleanupdefs' (default: false). When set to false, no cleanup is performed on the `<defs>` element. ([#41](https://github.com/FWeinb/grunt-svgstore/pull/41))
+  * Empty `<g>` elements are removed since they have no effect in a document. ([#42](https://github.com/FWeinb/grunt-svgstore/pull/42))
   
 Thanks to [Frank3K](https://github.com/Frank3K) for the PRs
 
