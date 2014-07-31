@@ -91,9 +91,17 @@ module.exports = function (grunt) {
         });
 
         // Map to store references from id to uniqueId + id;
-        // N.B.: only IDs that are referenced are mapped.
         var mappedIds = {};
         var uniqueId;
+
+        function getUniqueId(oldId) {
+          if (!uniqueId) {
+            uniqueId = md5(contentStr);
+          }
+
+          return 'svgstore' + uniqueId + oldId;
+        }
+
         $('*').each(function () {
           var $elem = $(this);
           var attrs = $elem.attr();
@@ -103,21 +111,20 @@ module.exports = function (grunt) {
             while ((match = urlPattern.exec(value)) !== null) {
               var refId = match[1];
 
-              // Add id mapping if not already present
+              // Add ID mapping if not already present
               if (!mappedIds[refId]) {
-                if (!uniqueId) {
-                  uniqueId = md5(contentStr);
-                }
-                var newId = 'svgstore' + uniqueId + refId;
-                mappedIds[refId] = newId;
+                mappedIds[refId] = getUniqueId(refId);
               }
 
               $elem.attr(key, value.replace(match[0], 'url(#' + mappedIds[refId] + ')'));
             }
 
-            if (options.cleanupdefs || !$elem.parents('defs').length) {
-              if (cleanupAttributes.indexOf(key) > -1){
-                $elem.removeAttr(key);
+            // IDs are handled separately
+            if (key !== 'id') {
+              if (options.cleanupdefs || !$elem.parents('defs').length) {
+                if (cleanupAttributes.indexOf(key) > -1){
+                  $elem.removeAttr(key);
+                }
               }
             }
           });
@@ -128,10 +135,14 @@ module.exports = function (grunt) {
           var $elem = $(this);
           var id = $elem.attr('id');
           var newId = mappedIds[id];
-          if (!newId) {
+          if (!newId && cleanupAttributes.indexOf('id') > -1) {
             // ID is not refenced and can therefore be removed
             $elem.removeAttr('id');
           } else {
+            if (!newId) {
+              mappedIds[id] = newId = getUniqueId(id);
+            }
+
             // Replace id by mapped id
             $elem.attr('id', newId);
           }

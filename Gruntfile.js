@@ -114,7 +114,7 @@ module.exports = function(grunt) {
 
       removeunreferencedids: {
         options: {
-          cleanup: true,
+          cleanup: ['style', 'id'],
           cleanupdefs: true
         },
         files: {
@@ -142,7 +142,7 @@ module.exports = function(grunt) {
 
       cleandefs: {
         options: {
-          cleanup: ['style'],
+          cleanup: ['style', 'id'],
           cleanupdefs: true
         },
         files: {
@@ -151,6 +151,9 @@ module.exports = function(grunt) {
       },
 
       removeemptyg: {
+        options: {
+          cleanup: ['id']
+        },
         files: {
           'tmp/no_empty_g.svg': ['test/fixtures/scissors.svg']
         }
