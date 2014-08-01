@@ -143,10 +143,13 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+#### 0.3.1
+
+  * Fix removal of unreferenced IDs (See [#46](https://github.com/FWeinb/grunt-svgstore/issues/46))
 
 #### 0.3.0
 
-  * Changed the way ID are collected; unreferenced IDs are removed now in order to save space. ([#40](https://github.com/FWeinb/grunt-svgstore/pull/40))
+  * Changed the way ID are collected; <del>unreferenced IDs are removed now in order to save space.</del> ([#40](https://github.com/FWeinb/grunt-svgstore/pull/40))
   * Changed the behavior of the 'cleanup'-option (introduced in 0.2.6). Apart from true / false, the value of this property can now be an array of attributes. All attributes in the array are removed from all elements in the SVG. ([#41](https://github.com/FWeinb/grunt-svgstore/pull/41))
   * Added an option 'cleanupdefs' (default: false). When set to false, no cleanup is performed on the `<defs>` element. ([#41](https://github.com/FWeinb/grunt-svgstore/pull/41))
   * Empty `<g>` elements are removed since they have no effect in a document. ([#42](https://github.com/FWeinb/grunt-svgstore/pull/42))
