@@ -20,6 +20,11 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-svgstore');
 ```
 
+## Screencast 
+
+Chris made a screencast, using `grunt-svgstore` in a real project, you can find it [here](http://css-tricks.com/video-screencasts/screencast-134-tour-site-progress-built-jekyll-grunt-sass-svg-system/).
+
+
 ## The "svgstore" task
 
 ### Overview
