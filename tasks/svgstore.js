@@ -200,6 +200,17 @@ module.exports = function (grunt) {
         var graphicId = options.prefix + id;
         $symbol.attr('id', graphicId);
 
+        // Extract gradients and pattern
+        var addToDefs = function(){
+          var $elem = $res(this);
+          $resultDefs.append($elem.toString());
+          $elem.remove();
+        };
+
+        $res('linearGradient').each(addToDefs);
+        $res('radialGradient').each(addToDefs);
+        $res('pattern').each(addToDefs);
+
         // Append <symbol> to resulting SVG
         $resultSvg.append($res.html());
 
