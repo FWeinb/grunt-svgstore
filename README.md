@@ -148,6 +148,10 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+#### 0.3.2 
+  
+  * Move `linearGradient`, `radialGradient` and `pattern` elements are moved outsite of the `<symbol>` tag. (See [#49](https://github.com/FWeinb/grunt-svgstore/issues/49))
+
 #### 0.3.1
 
   * Fix removal of unreferenced IDs (See [#46](https://github.com/FWeinb/grunt-svgstore/issues/46))
