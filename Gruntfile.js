@@ -87,6 +87,13 @@ module.exports = function(grunt) {
         }
       },
 
+      nestedsymboleid: {
+        options:{},
+        files: {
+          'tmp/nestedsymbol.svg': ['test/fixtures/nestedsymbol.svg']
+        }
+      },
+
       includedemo: {
         options:{
           includedemo : true
