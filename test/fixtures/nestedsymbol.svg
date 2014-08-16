@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="44px" height="39px" viewBox="0 0 44 39">
+    <symbol viewBox="0 0 44 6" id="menu-pill"><title>menu-pill</title> <rect fill="currentColor" x="0" y="0" width="44px" height="5px" rx="3px" ry="3px"/></symbol>
+    <text transform="matrix(1 0 0 1 0.1514 38)" fill="currentColor" font-family="'Neue Helvetica eText W01', sans-serif" font-size="15.5">menu</text>
+    <use xlink:href="#menu-pill"  width="44" height="6" x="-22" y="-3" transform="matrix(1 0 0 -1 22 21)" overflow="visible"/>
+    <use xlink:href="#menu-pill"  width="44" height="6" x="-22" y="-3" transform="matrix(1 0 0 -1 22 12)" overflow="visible"/>
+    <use xlink:href="#menu-pill"  width="44" height="6" x="-22" y="-3" transform="matrix(1 0 0 -1 22 3)" overflow="visible"/>
+</svg>

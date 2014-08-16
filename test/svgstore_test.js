@@ -90,6 +90,16 @@ exports.svgstore = {
     test.done();
   },
 
+  nested_symbol_ref: function(test){
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/nestedsymbol.svg');
+    var expected = grunt.file.read('test/expected/nestedsymbol.svg');
+    test.equal(actual, expected, 'should keep links between id and url() intact');
+
+    test.done();
+  },
+
   withCleanup: function(test) {
     test.expect(1);
 
