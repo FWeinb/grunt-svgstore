@@ -102,21 +102,41 @@ module.exports = function (grunt) {
           return 'svgstore' + uniqueId + oldId;
         }
 
+        $('[id]').each(function () {
+          var $elem = $(this);
+          var id = $elem.attr('id');
+          var uid = getUniqueId(id);
+          mappedIds[id] = {
+            id : uid,
+            referenced : false,
+            $elem : $elem
+          };
+          $elem.attr('id', uid);
+        });
+
         $('*').each(function () {
           var $elem = $(this);
           var attrs = $elem.attr();
+
           Object.keys(attrs).forEach(function (key) {
             var value = attrs[key];
-            var match;
-            while ((match = urlPattern.exec(value)) !== null) {
-              var refId = match[1];
+            var id, match;
 
-              // Add ID mapping if not already present
-              if (!mappedIds[refId]) {
-                mappedIds[refId] = getUniqueId(refId);
+            while ( (match = urlPattern.exec(value)) !== null){
+              id = match[1];
+              if (!!mappedIds[id]) {
+                mappedIds[id].referenced = true;
+                $elem.attr(key, value.replace(match[0], 'url(#' + mappedIds[id].id + ')'));
               }
+            }
 
-              $elem.attr(key, value.replace(match[0], 'url(#' + mappedIds[refId] + ')'));
+            if ( key === 'xlink:href' ) {
+              id = value.substring(1);
+              var idObj = mappedIds[id];
+              if (!!idObj){
+                idObj.referenced = false;
+                $elem.attr(key, '#' + idObj.id);
+              }
             }
 
             // IDs are handled separately
@@ -130,23 +150,14 @@ module.exports = function (grunt) {
           });
         });
 
-        // Apply ID mapping and remove unreferenced IDs
-        $('[id]').each(function () {
-          var $elem = $(this);
-          var id = $elem.attr('id');
-          var newId = mappedIds[id];
-          if (!newId && cleanupAttributes.indexOf('id') > -1) {
-            // ID is not refenced and can therefore be removed
-            $elem.removeAttr('id');
-          } else {
-            if (!newId) {
-              mappedIds[id] = newId = getUniqueId(id);
+        if ( cleanupAttributes.indexOf('id') > -1 ) {
+          Object.keys(mappedIds).forEach(function(id){
+            var idObj = mappedIds[id];
+            if (!idObj.referenced){
+               idObj.$elem.removeAttr('id');
             }
-
-            // Replace id by mapped id
-            $elem.attr('id', newId);
-          }
-        });
+         });
+        }
 
         var $svg = $('svg');
         var $title = $('title');
