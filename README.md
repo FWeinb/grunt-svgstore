@@ -116,6 +116,35 @@ Default value: `false`
 
 When set to false, no cleanup is performed on the `<defs>` element.
 
+#### options.fixedSizeVersion
+Type: `Object` or `boolean`
+Default value: `false`
+
+When `true` or a configuration object is passed for each of the symbols another one, with suffixed id generated.
+All those additional symbols have the common dimensions and refers to the original symbols with `<use>`.
+Original symbols are placed exactly in the middle of the fixed-size viewBox of the fixed size version.
+
+Configuration reference and default values if `true` is passed:
+```js
+grunt.initConfig({
+  svgstore: {
+    options: {
+      fixedSizeVersion: {
+        width: 50,
+        height: 50,
+        suffix: '-fixed-size',
+        maxDigits: {
+          translation: 4,
+          scale: 4,
+        },
+      },
+    },
+  },
+});
+```
+
+Any of the configuration object properties may be omitted.
+
 
 
 ### Usage Examples

@@ -44,7 +44,8 @@ module.exports = function (grunt) {
       formatting: false,
       includedemo: false,
       symbol: {},
-      cleanupdefs: false
+      cleanupdefs: false,
+      fixedSizeVersion: false
     });
 
     var cleanupAttributes = [];
@@ -230,6 +231,54 @@ module.exports = function (grunt) {
           iconNameViewBoxArray.push({
             name: graphicId
           });
+        }
+
+        if (viewBox && !!options.fixedSizeVersion) {
+          var fixedWidth = options.fixedSizeVersion.width || 50;
+          var fixedHeight = options.fixedSizeVersion.width || 50;
+          var $resFixed = cheerio.load('<symbol><use></use></symbol>', { lowerCaseAttributeNames: false });
+          var fixedId = graphicId + (options.fixedSizeVersion.suffix || '-fixed-size');
+          var $symbolFixed = $resFixed('symbol')
+            .first()
+            .attr('viewBox', [0, 0, fixedWidth, fixedHeight].join(' '))
+            .attr('id', fixedId);
+          Object.keys(options.symbol).forEach(function (key) {
+            $symbolFixed.attr(key, options.symbol[key]);
+          });
+          if (desc) {
+            $symbolFixed.prepend('<desc>' + desc + '</desc>');
+          }
+          if (title) {
+            $symbolFixed.prepend('<title>' + title + '</title>');
+          }
+          var originalViewBox = viewBox
+            .split(' ')
+            .map(function (string) {
+              return parseInt(string);
+            });
+
+          var translationX = ((fixedWidth - originalViewBox[2]) / 2) + originalViewBox[0];
+          var translationY = ((fixedHeight - originalViewBox[3]) / 2) + originalViewBox[1];
+          var scale = Math.max.apply(null, [originalViewBox[2], originalViewBox[3]]) /
+            Math.max.apply(null, [fixedWidth, fixedHeight]);
+
+          $symbolFixed
+            .find('use')
+            .attr('xlink:href', '#' + fixedId)
+            .attr('transform', [
+              'scale(' + parseFloat(scale.toFixed(options.fixedSizeVersion.maxDigits.scale || 4)).toPrecision() + ')',
+              'translate(' + [
+                parseFloat(translationX.toFixed(options.fixedSizeVersion.maxDigits.translation || 4)).toPrecision(),
+                parseFloat(translationY.toFixed(options.fixedSizeVersion.maxDigits.translation || 4)).toPrecision()
+              ].join(', ') + ')'
+            ].join(' '));
+
+          $resultSvg.append($resFixed.html());
+          if (options.includedemo) {
+            iconNameViewBoxArray.push({
+              name: fixedId
+            });
+          }
         }
       });
 
