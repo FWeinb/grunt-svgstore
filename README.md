@@ -103,6 +103,31 @@ Default value: `false`
 
 This will include a demo HTML (named like `destName + -demo.html`) from where you can copy your `<use>` blocks.
 
+#### options.demoTemplate
+Type: `string`
+Default value:
+
+```html
+<!doctype html>
+<html>
+  <head>
+    <style>
+      svg{
+       width:50px;
+       height:50px;
+       fill:black !important;
+      }
+    </style>
+  <head>
+  <body>
+    {{svg}}
+    {{useBlock}}
+  </body>
+</html>
+```
+
+This will replace the default demo template with a custom one. You can use `{{svg}}` and `{{useBlock}}` placeholders.
+
 #### options.cleanup (since 0.2.6)
 Type: `boolean`  or `Array`
 Default value: `false`  

@@ -1,6 +1,7 @@
 'use strict';
 
 var grunt = require('grunt');
+var minify = require('html-minifier').minify;
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -115,8 +116,18 @@ exports.svgstore = {
 
     var actual = grunt.file.read('tmp/includedemo-demo.html');
     var expected = grunt.file.read('test/expected/includedemo-demo.html');
-    test.equal(actual, expected, 'should have created a valid demo html');
 
+    // This way the comparison stays immune to whitespace changes.
+    var minificationOptions = {
+      collapseWhitespace: true,
+      minifyCSS: true
+    };
+
+    test.equal(
+        minify(actual, minificationOptions),
+        minify(expected, minificationOptions),
+        'should have created a valid demo html'
+    );
     test.done();
   },
 

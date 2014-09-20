@@ -43,6 +43,24 @@ module.exports = function (grunt) {
       },
       formatting: false,
       includedemo: false,
+      demoTemplate: multiline.stripIndent(function () { /*
+        <!doctype html>
+        <html>
+          <head>
+            <style>
+              svg{
+               width:50px;
+               height:50px;
+               fill:black !important;
+              }
+            </style>
+          <head>
+          <body>
+            {{svg}}
+            {{useBlock}}
+          </body>
+        </html>
+      */}),
       symbol: {},
       cleanupdefs: false
     });
@@ -248,24 +266,7 @@ module.exports = function (grunt) {
       if (options.includedemo) {
         $resultSvg.attr('style', 'width:0;height:0;visibility:hidden;');
 
-        var demoHTML = multiline.stripIndent(function () { /*
-                <!doctype html>
-                <html>
-                  <head>
-                    <style>
-                      svg{
-                          width:50px;
-                          height:50px;
-                          fill:black !important;
-                      }
-                    </style>
-                  <head>
-                  <body>
-                    {{svg}}
-                    {{useBlock}}
-                  </body>
-               </html>
-              */});
+        var demoHTML = options.demoTemplate;
 
         var useBlock = '';
         iconNameViewBoxArray.forEach(function (item) {
