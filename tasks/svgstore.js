@@ -56,7 +56,7 @@ module.exports = function (grunt) {
     }
 
     this.files.forEach(function (file) {
-      var $resultDocument = cheerio.load('<svg><defs></defs></svg>', { lowerCaseAttributeNames : false }),
+      var $resultDocument = cheerio.load('<svg><defs></defs></svg>', { xmlMode: true }),
           $resultSvg = $resultDocument('svg'),
           $resultDefs = $resultDocument('defs').first(),
           iconNameViewBoxArray = [];  // Used to store information of all icons that are added
@@ -184,7 +184,7 @@ module.exports = function (grunt) {
         title = title || id;
 
         // Generate symbol
-        var $res = cheerio.load('<symbol>' + $svg.html() + '</symbol>', { lowerCaseAttributeNames: false });
+        var $res = cheerio.load('<symbol>' + $svg.html() + '</symbol>', { xmlMode: true });
         var $symbol = $res('symbol').first();
 
         // Merge in symbol attributes from option
@@ -238,7 +238,7 @@ module.exports = function (grunt) {
         $resultDefs.remove();
       }
 
-      var result = options.formatting ? beautify($resultDocument.xml(), options.formatting) : $resultDocument.xml();
+      var result = options.formatting ? beautify($resultDocument.html(), options.formatting) : $resultDocument.html();
       var destName = path.basename(file.dest, '.svg');
 
       grunt.file.write(file.dest, result);
@@ -272,7 +272,7 @@ module.exports = function (grunt) {
           useBlock += '\t\t<svg>\n\t\t\t<use xlink:href="#' + item.name + '"></use>\n\t\t</svg>\n';
         });
 
-        demoHTML = demoHTML.replace('{{svg}}', $resultDocument.xml());
+        demoHTML = demoHTML.replace('{{svg}}', $resultDocument.html());
         demoHTML = demoHTML.replace('{{useBlock}}', useBlock);
 
         var demoPath = path.resolve(path.dirname(file.dest), destName + '-demo.html');
