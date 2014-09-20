@@ -149,6 +149,11 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+#### 0.3.4
+
+  * Fixed an issue with SMIL animations inside a svg symbole (See [#56](https://github.com/FWeinb/grunt-svgstore/issues/56))
+  * Update to cheerio `0.17.0`
+
 #### 0.3.3
 
   * Fix broken id references between nested `<symbol>` tags. (See [#50](https://github.com/FWeinb/grunt-svgstore/issues/50#issuecomment-52271449))
