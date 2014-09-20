@@ -99,7 +99,7 @@ module.exports = function(grunt) {
           includedemo : true
         },
         files: {
-          'tmp/includedemo.svg': ['test/fixtures/*.svg']
+          'tmp/includedemo.svg': ['test/fixtures/*.svg', 'test/fixtures/animation/anim.svg']
         }
       },
 
@@ -163,6 +163,12 @@ module.exports = function(grunt) {
         },
         files: {
           'tmp/no_empty_g.svg': ['test/fixtures/scissors.svg']
+        }
+      },
+
+      perserveAnimation: {
+        files: {
+          'tmp/anim.svg': ['test/fixtures/animation/anim.svg']
         }
       }
 

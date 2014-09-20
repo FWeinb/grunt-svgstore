@@ -178,6 +178,16 @@ exports.svgstore = {
     test.equal(actual, expected, 'All empty g elements should be removed');
 
     test.done();
+  },
+
+  perserveAnimation: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/anim.svg');
+    var expected = grunt.file.read('test/expected/anim.svg');
+    test.equal(actual, expected, 'Animations should be intact');
+
+    test.done();
   }
 
 };
