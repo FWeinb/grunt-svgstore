@@ -199,6 +199,46 @@ exports.svgstore = {
     test.equal(actual, expected, 'Animations should be intact');
 
     test.done();
-  }
+  },
+
+  customTemplate: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/customTemplate-demo.html');
+    var expected = grunt.file.read('test/expected/customTemplate-demo.html');
+
+    // This way the comparison stays immune to whitespace changes.
+    var minificationOptions = {
+      collapseWhitespace: true,
+      minifyCSS: true
+    };
+
+    test.equal(
+        minify(actual, minificationOptions),
+        minify(expected, minificationOptions),
+        'should have created a valid demo html'
+    );
+    test.done();
+  },
+
+  customTemplateFunction: function(test) {
+      test.expect(1);
+
+      var actual = grunt.file.read('tmp/customTemplateFunction-demo.html');
+      var expected = grunt.file.read('test/expected/customTemplateFunction-demo.html');
+
+      // This way the comparison stays immune to whitespace changes.
+      var minificationOptions = {
+        collapseWhitespace: true,
+        minifyCSS: true
+      };
+
+      test.equal(
+          minify(actual, minificationOptions),
+          minify(expected, minificationOptions),
+          'should have created a valid demo html'
+      );
+      test.done();
+    }
 
 };

@@ -8,6 +8,8 @@
 
 'use strict';
 
+var multiline = require('multiline');
+
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -170,8 +172,51 @@ module.exports = function(grunt) {
         files: {
           'tmp/anim.svg': ['test/fixtures/animation/anim.svg']
         }
-      }
+      },
 
+      withCustomTemplate:{
+        options: {
+          includedemo : multiline.stripIndent(function(){/*
+                <!doctype html>
+                <html>
+                  <head>
+                    <style>
+                      svg{
+                       width:50px;
+                       height:50px;
+                       fill:black !important;
+                      }
+                    </style>
+                  <head>
+                  <body>
+                    {{{svg}}}
+
+                    {{#each icons}}
+                    <div>
+                      <svg>
+                        <use xlink:href="#{{name}}" />
+                      </svg>
+                      <div>{{title}}</div>
+                    </div>
+                    {{/each}}
+
+                  </body>
+                </html>
+          */})
+        },
+        files: {
+          'tmp/customTemplate.svg': ['test/fixtures/animation/anim.svg']
+        }
+      },
+
+      withCustomTemplateFunction: {
+        options: {
+          includedemo : function(){}
+        },
+        files: {
+          'tmp/customTemplateFunction.svg': ['test/fixtures/animation/anim.svg']
+        }
+      },
     },
 
     // Unit tests.

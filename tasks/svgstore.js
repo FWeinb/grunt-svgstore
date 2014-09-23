@@ -15,6 +15,7 @@ module.exports = function (grunt) {
   var beautify = require('js-beautify').html;
   var cheerio = require('cheerio');
   var chalk = require('chalk');
+  var handlebars = require('handlebars');
 
   var md5 = function (str) {
     return crypto.createHash('md5').update(str).digest('hex');
@@ -31,6 +32,32 @@ module.exports = function (grunt) {
   // Matching an url() reference. To correct references broken by making ids unique to the source svg
   var urlPattern = /url\(\s*#([^ ]+?)\s*\)/g;
 
+  // Default Template
+  var defaultTemplate = multiline.stripIndent(function () { /*
+    <!doctype html>
+    <html>
+      <head>
+        <style>
+          svg{
+           width:50px;
+           height:50px;
+           fill:black !important;
+          }
+        </style>
+      <head>
+      <body>
+        {{{svg}}}
+
+        {{#each icons}}
+            <svg>
+              <use xlink:href="#{{name}}" />
+            </svg>
+        {{/each}}
+
+      </body>
+    </html>
+  */});
+
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
@@ -43,24 +70,6 @@ module.exports = function (grunt) {
       },
       formatting: false,
       includedemo: false,
-      demoTemplate: multiline.stripIndent(function () { /*
-        <!doctype html>
-        <html>
-          <head>
-            <style>
-              svg{
-               width:50px;
-               height:50px;
-               fill:black !important;
-              }
-            </style>
-          <head>
-          <body>
-            {{svg}}
-            {{useBlock}}
-          </body>
-        </html>
-      */}),
       symbol: {},
       cleanupdefs: false
     });
@@ -244,9 +253,10 @@ module.exports = function (grunt) {
         $resultSvg.append($res.html());
 
         // Add icon to the demo.html array
-        if (options.includedemo) {
+        if (!!options.includedemo) {
           iconNameViewBoxArray.push({
-            name: graphicId
+            name: graphicId,
+            title: title
           });
         }
       });
@@ -263,18 +273,24 @@ module.exports = function (grunt) {
 
       grunt.log.writeln('File ' + chalk.cyan(file.dest) + ' created.');
 
-      if (options.includedemo) {
+      if (!!options.includedemo) {
         $resultSvg.attr('style', 'width:0;height:0;visibility:hidden;');
 
-        var demoHTML = options.demoTemplate;
+        var demoHTML;
+        var viewData = {
+          svg : $resultDocument.html(),
+          icons : iconNameViewBoxArray
+        };
 
-        var useBlock = '';
-        iconNameViewBoxArray.forEach(function (item) {
-          useBlock += '\t\t<svg>\n\t\t\t<use xlink:href="#' + item.name + '"></use>\n\t\t</svg>\n';
-        });
-
-        demoHTML = demoHTML.replace('{{svg}}', $resultDocument.html());
-        demoHTML = demoHTML.replace('{{useBlock}}', useBlock);
+        if (typeof options.includedemo === 'function'){
+          demoHTML = options.includedemo(viewData);
+        } else{
+          var template = defaultTemplate;
+          if (typeof options.includedemo === 'string'){
+            template = options.includedemo;
+          }
+          demoHTML = handlebars.compile(template)(viewData);
+        }
 
         var demoPath = path.resolve(path.dirname(file.dest), destName + '-demo.html');
         grunt.file.write(demoPath, demoHTML);

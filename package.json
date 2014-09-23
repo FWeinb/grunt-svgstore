@@ -1,7 +1,7 @@
 {
   "name": "grunt-svgstore",
   "description": "Merge SVGs from a folder.",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "homepage": "https://github.com/FWeinb/grunt-svgstore",
   "author": {
     "name": "Fabrice Weinberg",
@@ -37,7 +37,8 @@
     "chalk": "^0.4.0",
     "cheerio": "^0.17.0",
     "js-beautify": "^1.5.1",
-    "multiline": "^0.3.4"
+    "multiline": "^0.3.4",
+    "handlebars": "^2.0.0"
   },
   "peerDependencies": {
     "grunt": "~0.4.5"

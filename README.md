@@ -97,15 +97,13 @@ default: {
 ```
 See [js-beautify](https://github.com/einars/js-beautify) for more options.
 
-#### options.includedemo (since 0.1.0)
-Type: `boolean`  
-Default value: `false`  
+#### options.includedemo (since 0.3.5)
+Type: `boolean|string|function`  
+Default value: `false`
 
 This will include a demo HTML (named like `destName + -demo.html`) from where you can copy your `<use>` blocks.
 
-#### options.demoTemplate
-Type: `string`
-Default value:
+The default template used looks like:
 
 ```html
 <!doctype html>
@@ -120,13 +118,30 @@ Default value:
     </style>
   <head>
   <body>
-    {{svg}}
-    {{useBlock}}
+    {{{svg}}}
+
+    {{#each icons}}
+        <svg>
+          <use xlink:href="#{{name}}" />
+        </svg>
+    {{/each}}
+
   </body>
 </html>
 ```
 
-This will replace the default demo template with a custom one. You can use `{{svg}}` and `{{useBlock}}` placeholders.
+Since `0.3.5` you can customise this by passing in a `string` that will be compiled via `handlebars` and used as a tempalte. If it is a function this function is expeced to take one parameter and return a string. 
+
+The data passed to the template looks like this:
+```js
+{
+  svg : '[raw HTML of the generated svg]',
+  icons : [
+    name : 'name of an item',
+    title : 'extracted title or name'
+  ]
+}
+```
 
 #### options.cleanup (since 0.2.6)
 Type: `boolean`  or `Array`
@@ -173,6 +188,10 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+
+#### 0.3.5
+
+  * Add the ability to use [`handlebars`](http://handlebarsjs.com/) templates in `options.includedemo`.
 
 #### 0.3.4
 
