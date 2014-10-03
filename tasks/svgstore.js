@@ -170,7 +170,12 @@ module.exports = function (grunt) {
             if (key !== 'id') {
               if (options.cleanupdefs || !$elem.parents('defs').length) {
                 if (cleanupAttributes.indexOf(key) > -1){
-                  $elem.removeAttr(key);
+
+                  // Letting fill inherit the `currentColor` allows shared inline defs to
+                  // be styled differently based on an xlink element's `color` so we leave these
+                  if (!(key === 'fill' && $elem.attr('fill') === 'currentColor')) {
+                    $elem.removeAttr(key);
+                  }
                 }
               }
             }
