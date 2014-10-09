@@ -161,6 +161,16 @@ exports.svgstore = {
     test.done();
   },
 
+  cleanup_fill_leaves_current_color_fills: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/cleanup_with_currentColor.svg');
+    var expected = grunt.file.read('test/expected/cleanup_with_currentColor.svg');
+    test.equal(actual, expected, 'fill with value of currentColor should NOT be removed');
+
+    test.done();
+  },
+
   with_cleanupdefs: function(test) {
     test.expect(1);
 

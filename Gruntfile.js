@@ -121,6 +121,15 @@ module.exports = function(grunt) {
         }
       },
 
+      cleanupwithcurrentcolor: {
+        options: {
+          cleanup: true
+        },
+        files: {
+          'tmp/cleanup_with_currentColor.svg': ['test/fixtures/cleanup_with_currentColor.svg']
+        }
+      },
+
       removeunreferencedids: {
         options: {
           cleanup: ['style', 'id'],
