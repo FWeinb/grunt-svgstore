@@ -189,6 +189,10 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+#### 0.3.6
+
+  * Preserve currentColor in `fill` attribute even if `cleanup` is set to `true. (See [#63](https://github.com/FWeinb/grunt-svgstore/pull/63)) 
+
 #### 0.3.5
 
   * Add the ability to use [`handlebars`](http://handlebarsjs.com/) templates in `options.includedemo`.
