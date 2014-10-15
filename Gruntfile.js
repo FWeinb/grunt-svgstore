@@ -130,6 +130,16 @@ module.exports = function(grunt) {
         }
       },
 
+      cleanupwithwhviewbox: {
+        options: {
+          cleanup: true,
+          whviewbox: true
+        },
+        files: {
+          'tmp/cleanup_with_whviewbox.svg': ['test/fixtures/cleanup.svg']
+        }
+      },
+
       removeunreferencedids: {
         options: {
           cleanup: ['style', 'id'],
