@@ -21,14 +21,6 @@ module.exports = function (grunt) {
     return crypto.createHash('md5').update(str).digest('hex');
   };
 
-  var convertNameToId = function( name ){
-    var dotPos = name.indexOf('.');
-    if ( dotPos > -1){
-      name = name.substring(0, dotPos);
-    }
-    return name;
-  };
-
   // Matching an url() reference. To correct references broken by making ids unique to the source svg
   var urlPattern = /url\(\s*#([^ ]+?)\s*\)/g;
 
@@ -71,7 +63,14 @@ module.exports = function (grunt) {
       formatting: false,
       includedemo: false,
       symbol: {},
-      cleanupdefs: false
+      cleanupdefs: false,
+      convertNameToId: function(name) {
+        var dotPos = name.indexOf('.');
+        if ( dotPos > -1){
+          name = name.substring(0, dotPos);
+        }
+        return name;
+      }
     });
 
     var cleanupAttributes = [];
@@ -210,7 +209,7 @@ module.exports = function (grunt) {
         $title.remove();
         $desc.remove();
 
-        var id = convertNameToId(filename);
+        var id = options.convertNameToId(filename);
 
         // If there is no title use the filename
         title = title || id;

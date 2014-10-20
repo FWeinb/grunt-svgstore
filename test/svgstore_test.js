@@ -232,23 +232,33 @@ exports.svgstore = {
   },
 
   customTemplateFunction: function(test) {
-      test.expect(1);
+    test.expect(1);
 
-      var actual = grunt.file.read('tmp/customTemplateFunction-demo.html');
-      var expected = grunt.file.read('test/expected/customTemplateFunction-demo.html');
+    var actual = grunt.file.read('tmp/customTemplateFunction-demo.html');
+    var expected = grunt.file.read('test/expected/customTemplateFunction-demo.html');
 
-      // This way the comparison stays immune to whitespace changes.
-      var minificationOptions = {
-        collapseWhitespace: true,
-        minifyCSS: true
-      };
+    // This way the comparison stays immune to whitespace changes.
+    var minificationOptions = {
+      collapseWhitespace: true,
+      minifyCSS: true
+    };
 
-      test.equal(
-          minify(actual, minificationOptions),
-          minify(expected, minificationOptions),
-          'should have created a valid demo html'
-      );
-      test.done();
-    }
+    test.equal(
+        minify(actual, minificationOptions),
+        minify(expected, minificationOptions),
+        'should have created a valid demo html'
+    );
+    test.done();
+  },
+
+  customIdFunction: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/customIdFunction.svg');
+    var expected = grunt.file.read('test/expected/customIdFunction.svg');
+
+    test.equal(actual, expected, 'Symbol ID should not contain prefix');
+    test.done();
+  }
 
 };
