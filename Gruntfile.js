@@ -108,7 +108,7 @@ module.exports = function(grunt) {
       cutNameAfterFirstDot: {
         options:{},
         files: {
-          'tmp/cutnameafterfirstdot.svg': ['test/fixtures/naming/*']
+          'tmp/cutnameafterfirstdot.svg': ['test/fixtures/naming/name.min.svg']
         }
       },
 
@@ -236,6 +236,17 @@ module.exports = function(grunt) {
           'tmp/customTemplateFunction.svg': ['test/fixtures/animation/anim.svg']
         }
       },
+
+      withCustomIdFunction: {
+        options: {
+          convertNameToId: function(name) {
+            return name.split('_')[1];
+          }
+        },
+        files: {
+          'tmp/customIdFunction.svg': ['test/fixtures/naming/SomePrefix_iconName.svg']
+        }
+      }
     },
 
     // Unit tests.
