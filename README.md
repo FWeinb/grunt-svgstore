@@ -78,30 +78,6 @@ Default value: `{}`
 
 Just like `options.svg` but will add attributes to each generated `<symbol>`.
 
-
-#### options.inheritviewbox
-Type: `boolean`  
-Default value: `false`
-
-By default, each generated `<symbol>` will only automatically have a `viewBox`
-attribute set if the original source SVG file for that symbol has a `viewBox`.
-
-When `inheritviewbox` is set to `true`, if the source SVG has no `viewBox` but
-it *does* have a pixel-based `width` and `height`, then the `<symbol>`
-`viewBox` will be derived using those values instead.
-
-For example, with `inheritviewbox: true`,
-
-```svg
-<svg width="256" height="128">
-```
-
-will result in:
-
-```svg
-<symbol viewBox="0 0 256 128" ...>
-```
-
 #### options.formatting (since 0.0.4)
 Type: `Object` or `boolean`  
 Default value: `false`  
@@ -180,7 +156,30 @@ Default value: `false`
 
 When set to false, no cleanup is performed on the `<defs>` element.
 
-#### options.convertNameToId 
+#### options.inheritviewbox (since 0.4.0)
+Type: `boolean`  
+Default value: `false`
+
+By default, each generated `<symbol>` will only automatically have a `viewBox`
+attribute set if the original source SVG file for that symbol has a `viewBox`.
+
+When `inheritviewbox` is set to `true`, if the source SVG has no `viewBox` but
+it *does* have a pixel-based `width` and `height`, then the `<symbol>`
+`viewBox` will be derived using those values instead.
+
+For example, with `inheritviewbox: true`,
+
+```svg
+<svg width="256" height="128">
+```
+
+will result in:
+
+```svg
+<symbol viewBox="0 0 256 128" ...>
+```
+
+#### options.convertNameToId (since 0.4.0)
 Type: `function`
 
 The function used to generate the ID from the file name. The function receives the file name without the `.svg` extension as its only argument.
@@ -196,7 +195,7 @@ function(name) {
 }
 ```
 
-#### options.fixedSizeVersion
+#### options.fixedSizeVersion (Since 0.4.0)
 Type: `Object` or `boolean`
 Default value: `false`
 
@@ -254,6 +253,12 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+
+#### 0.4.0
+
+  * Generate fixed sized reference based copies of symbols (See [#58](https://github.com/FWeinb/grunt-svgstore/pull/58))
+  * Add a way to inherit the viewbox form the source svg (See [#66](https://github.com/FWeinb/grunt-svgstore/pull/66))
+  * Expose `convertNameToId` option to customize how ids are derived from file names. (See [#68](https://github.com/FWeinb/grunt-svgstore/pull/68))
 
 #### 0.3.6
 
