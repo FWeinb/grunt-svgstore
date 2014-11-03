@@ -146,9 +146,9 @@ The data passed to the template looks like this:
 Type: `boolean`  or `Array`
 Default value: `false`  
 
-Clean up all inline style definitions that may jeopardise later stylesheet-based colouring (`fill`).
-Apart from true / false, the value of this property can be an array of attributes. 
-All attributes in the array are removed from all elements in the SVG.
+This option can be used to clean up inline definitions that may jeopardise later CSS-based styles.  
+When set to true clean up all inline `style` attributes.  
+Apart from true / false, the value of this property can be an array of inline attributes ( like `fill`, `stroke`, ...) you want to remove from the elements in the SVG.
 
 #### options.cleanupdefs (since 0.3.0)
 Type: `boolean`  
