@@ -17,10 +17,6 @@ module.exports = function (grunt) {
   var chalk = require('chalk');
   var handlebars = require('handlebars');
 
-  var md5 = function (str) {
-    return crypto.createHash('md5').update(str).digest('hex');
-  };
-
   // Matching an url() reference. To correct references broken by making ids unique to the source svg
   var urlPattern = /url\(\s*#([^ ]+?)\s*\)/g;
 
@@ -107,6 +103,7 @@ module.exports = function (grunt) {
         }
       }).map(function (filepath) {
         var filename = path.basename(filepath, '.svg');
+        var id = options.convertNameToId(filename);
         var contentStr = grunt.file.read(filepath);
         var $ = cheerio.load(contentStr, {
               normalizeWhitespace: true,
@@ -123,14 +120,9 @@ module.exports = function (grunt) {
 
         // Map to store references from id to uniqueId + id;
         var mappedIds = {};
-        var uniqueId;
 
         function getUniqueId(oldId) {
-          if (!uniqueId) {
-            uniqueId = md5(contentStr);
-          }
-
-          return 'svgstore' + uniqueId + oldId;
+          return id + "-" + oldId;
         }
 
         $('[id]').each(function () {
@@ -213,8 +205,6 @@ module.exports = function (grunt) {
         $def.remove();
         $title.remove();
         $desc.remove();
-
-        var id = options.convertNameToId(filename);
 
         // If there is no title use the filename
         title = title || id;
