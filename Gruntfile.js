@@ -130,6 +130,16 @@ module.exports = function(grunt) {
         }
       },
 
+      cleanupwithinheritviewbox: {
+        options: {
+          cleanup: true,
+          inheritviewbox: true
+        },
+        files: {
+          'tmp/cleanup_with_inheritviewbox.svg': ['test/fixtures/cleanup.svg']
+        }
+      },
+
       removeunreferencedids: {
         options: {
           cleanup: ['style', 'id'],

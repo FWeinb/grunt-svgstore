@@ -171,6 +171,16 @@ exports.svgstore = {
     test.done();
   },
 
+  cleanup_with_inheritviewbox: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/cleanup_with_inheritviewbox.svg');
+    var expected = grunt.file.read('test/expected/cleanup_with_inheritviewbox.svg');
+    test.equal(actual, expected, 'viewBox may use width/height of SVG if inheritviewbox enabled');
+
+    test.done();
+  },
+
   with_cleanupdefs: function(test) {
     test.expect(1);
 

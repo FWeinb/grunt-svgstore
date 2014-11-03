@@ -71,6 +71,7 @@ module.exports = function (grunt) {
       formatting: false,
       includedemo: false,
       symbol: {},
+      inheritviewbox: false,
       cleanupdefs: false
     });
 
@@ -233,8 +234,18 @@ module.exports = function (grunt) {
           $symbol.prepend('<title>' + title + '</title>');
         }
 
-        // Add viewBox (if present on SVG)
+        // Add viewBox (if present on SVG w/ optional width/height fallback)
         var viewBox = $svg.attr('viewBox');
+
+        if (!viewBox && options.inheritviewbox) {
+          var width = $svg.attr('width');
+          var height = $svg.attr('height');
+          var pxSize = /^\d+(\.\d+)?(px)?$/;
+          if (pxSize.test(width) && pxSize.test(height)) {
+            viewBox = '0 0 ' + parseFloat(width) + ' ' + parseFloat(height);
+          }
+        }
+
         if (viewBox) {
           $symbol.attr('viewBox', viewBox);
         }

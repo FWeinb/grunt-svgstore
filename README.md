@@ -79,6 +79,29 @@ Default value: `{}`
 Just like `options.svg` but will add attributes to each generated `<symbol>`.
 
 
+#### options.inheritviewbox
+Type: `boolean`  
+Default value: `false`
+
+By default, each generated `<symbol>` will only automatically have a `viewBox`
+attribute set if the original source SVG file for that symbol has a `viewBox`.
+
+When `inheritviewbox` is set to `true`, if the source SVG has no `viewBox` but
+it *does* have a pixel-based `width` and `height`, then the `<symbol>`
+`viewBox` will be derived using those values instead.
+
+For example, with `inheritviewbox: true`,
+
+```svg
+<svg width="256" height="128">
+```
+
+will result in:
+
+```svg
+<symbol viewBox="0 0 256 128" ...>
+```
+
 #### options.formatting (since 0.0.4)
 Type: `Object` or `boolean`  
 Default value: `false`  
