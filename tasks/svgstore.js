@@ -50,6 +50,15 @@ module.exports = function (grunt) {
     </html>
   */});
 
+  // Default function used to extract an id from a name
+  var defaultConvertNameToId = function(name) {
+    var dotPos = name.indexOf('.');
+    if ( dotPos > -1){
+      name = name.substring(0, dotPos);
+    }
+    return name;
+  };
+
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
@@ -60,18 +69,12 @@ module.exports = function (grunt) {
       svg: {
           'xmlns': "http://www.w3.org/2000/svg"
       },
+      symbol: {},
       formatting: false,
       includedemo: false,
-      symbol: {},
       inheritviewbox: false,
       cleanupdefs: false,
-      convertNameToId: function(name) {
-        var dotPos = name.indexOf('.');
-        if ( dotPos > -1){
-          name = name.substring(0, dotPos);
-        }
-        return name;
-      }
+      convertNameToId: defaultConvertNameToId
     });
 
     var cleanupAttributes = [];
