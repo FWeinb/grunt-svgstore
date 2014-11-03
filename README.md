@@ -180,6 +180,21 @@ Default value: `false`
 
 When set to false, no cleanup is performed on the `<defs>` element.
 
+#### options.convertNameToId 
+Type: `function`
+
+The function used to generate the ID from the file name. The function receives the file name without the `.svg` extension as its only argument.
+
+The default implementation:
+```js
+function(name) {
+  var dotPos = name.indexOf('.');
+  if ( dotPos > -1){
+    name = name.substring(0, dotPos);
+  }
+  return name;
+}
+```
 
 
 ### Usage Examples
