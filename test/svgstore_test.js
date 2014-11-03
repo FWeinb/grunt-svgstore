@@ -171,12 +171,12 @@ exports.svgstore = {
     test.done();
   },
 
-  cleanup_with_whviewbox: function(test) {
+  cleanup_with_inheritviewbox: function(test) {
     test.expect(1);
 
-    var actual = grunt.file.read('tmp/cleanup_with_whviewbox.svg');
-    var expected = grunt.file.read('test/expected/cleanup_with_whviewbox.svg');
-    test.equal(actual, expected, 'viewBox may use width/height of SVG if whviewbox enabled');
+    var actual = grunt.file.read('tmp/cleanup_with_inheritviewbox.svg');
+    var expected = grunt.file.read('test/expected/cleanup_with_inheritviewbox.svg');
+    test.equal(actual, expected, 'viewBox may use width/height of SVG if inheritviewbox enabled');
 
     test.done();
   },

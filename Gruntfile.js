@@ -130,13 +130,13 @@ module.exports = function(grunt) {
         }
       },
 
-      cleanupwithwhviewbox: {
+      cleanupwithinheritviewbox: {
         options: {
           cleanup: true,
-          whviewbox: true
+          inheritviewbox: true
         },
         files: {
-          'tmp/cleanup_with_whviewbox.svg': ['test/fixtures/cleanup.svg']
+          'tmp/cleanup_with_inheritviewbox.svg': ['test/fixtures/cleanup.svg']
         }
       },
 

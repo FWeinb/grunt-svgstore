@@ -71,7 +71,7 @@ module.exports = function (grunt) {
       formatting: false,
       includedemo: false,
       symbol: {},
-      whviewbox: false,
+      inheritviewbox: false,
       cleanupdefs: false
     });
 
@@ -237,7 +237,7 @@ module.exports = function (grunt) {
         // Add viewBox (if present on SVG w/ optional width/height fallback)
         var viewBox = $svg.attr('viewBox');
 
-        if (!viewBox && options.whviewbox) {
+        if (!viewBox && options.inheritviewbox) {
           var width = $svg.attr('width');
           var height = $svg.attr('height');
           var pxSize = /^\d+(\.\d+)?(px)?$/;
