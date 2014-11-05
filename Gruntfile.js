@@ -18,16 +18,16 @@ module.exports = function(grunt) {
       all: [
         'Gruntfile.js',
         'tasks/*.js',
-        '<%= nodeunit.tests %>',
+        '<%= nodeunit.tests %>'
       ],
       options: {
-        jshintrc: '.jshintrc',
+        jshintrc: '.jshintrc'
       },
     },
 
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['tmp'],
+      tests: ['tmp']
     },
 
     // Configuration to be run (and then tested).
@@ -41,7 +41,7 @@ module.exports = function(grunt) {
       },
 
       prefix: {
-        options:{
+        options: {
           prefix: 'icon-'
         },
         files: {
@@ -50,7 +50,7 @@ module.exports = function(grunt) {
       },
 
       svgattr: {
-        options:{
+        options: {
           svg: {
             viewBox : '0 0 100 100'
           }
@@ -129,7 +129,15 @@ module.exports = function(grunt) {
           'tmp/cleanup_with_currentColor.svg': ['test/fixtures/cleanup_with_currentColor.svg']
         }
       },
-
+      
+      preserveattribute: {
+        options: {
+          cleanup: ['fill', 'stroke', 'imafake']
+        },
+        files: {
+          'tmp/preserve_attribute.svg': ['test/fixtures/preserve_attribute.svg']
+        }
+      },
       cleanupwithinheritviewbox: {
         options: {
           cleanup: true,
@@ -251,8 +259,8 @@ module.exports = function(grunt) {
 
     // Unit tests.
     nodeunit: {
-      tests: ['test/*_test.js'],
-    },
+      tests: ['test/*_test.js']
+    }
 
   });
 

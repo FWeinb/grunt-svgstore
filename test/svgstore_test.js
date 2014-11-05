@@ -171,6 +171,16 @@ exports.svgstore = {
     test.done();
   },
 
+  cleanup_preserve_leaves_attributes: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/preserve_attribute.svg');
+    var expected = grunt.file.read('test/expected/preserve_attribute.svg');
+    test.equal(actual, expected, 'attribute with value of preserve-- should strip preserve');
+
+    test.done();
+  },
+
   cleanup_with_inheritviewbox: function(test) {
     test.expect(1);
 
