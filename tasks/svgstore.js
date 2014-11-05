@@ -164,20 +164,20 @@ module.exports = function (grunt) {
 
             // IDs are handled separately
             if (key !== 'id') {
-                            
+
               if (options.cleanupdefs || !$elem.parents('defs').length) {
-                
+
                 if (key.match(/preserve--/)) {
                   //Strip off the preserve--
                   preservedKey = key.substring(10);
                 }
-                
-                if (cleanupAttributes.indexOf(key) > -1 || cleanupAttributes.indexOf(preservedKey) > -1){   
-                  
+
+                if (cleanupAttributes.indexOf(key) > -1 || cleanupAttributes.indexOf(preservedKey) > -1){
+
                   if (preservedKey && preservedKey.length) {
                     //Add the new key preserving value
                     $elem.attr(preservedKey, $elem.attr(key));
-                    
+
                     //Remove the old preserve--foo key
                     $elem.removeAttr(key);
                   }
@@ -185,7 +185,15 @@ module.exports = function (grunt) {
                     // Letting fill inherit the `currentColor` allows shared inline defs to
                     // be styled differently based on an xlink element's `color` so we leave these
                     $elem.removeAttr(key);
-                  } 
+                  }
+                } else {
+                  if (preservedKey && preservedKey.length) {
+                    //Add the new key preserving value
+                    $elem.attr(preservedKey, $elem.attr(key));
+
+                    //Remove the old preserve--foo key
+                    $elem.removeAttr(key);
+                  }
                 }
               }
             }
