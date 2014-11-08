@@ -143,7 +143,7 @@ module.exports = function (grunt) {
 
           Object.keys(attrs).forEach(function (key) {
             var value = attrs[key];
-            var id, match;
+            var id, match, preservedKey = '';
 
             while ( (match = urlPattern.exec(value)) !== null){
               id = match[1];
@@ -164,12 +164,34 @@ module.exports = function (grunt) {
 
             // IDs are handled separately
             if (key !== 'id') {
-              if (options.cleanupdefs || !$elem.parents('defs').length) {
-                if (cleanupAttributes.indexOf(key) > -1){
 
-                  // Letting fill inherit the `currentColor` allows shared inline defs to
-                  // be styled differently based on an xlink element's `color` so we leave these
-                  if (!(key === 'fill' && $elem.attr('fill') === 'currentColor')) {
+              if (options.cleanupdefs || !$elem.parents('defs').length) {
+
+                if (key.match(/preserve--/)) {
+                  //Strip off the preserve--
+                  preservedKey = key.substring(10);
+                }
+
+                if (cleanupAttributes.indexOf(key) > -1 || cleanupAttributes.indexOf(preservedKey) > -1){
+
+                  if (preservedKey && preservedKey.length) {
+                    //Add the new key preserving value
+                    $elem.attr(preservedKey, $elem.attr(key));
+
+                    //Remove the old preserve--foo key
+                    $elem.removeAttr(key);
+                  }
+                  else if (!(key === 'fill' && $elem.attr('fill') === 'currentColor')) {
+                    // Letting fill inherit the `currentColor` allows shared inline defs to
+                    // be styled differently based on an xlink element's `color` so we leave these
+                    $elem.removeAttr(key);
+                  }
+                } else {
+                  if (preservedKey && preservedKey.length) {
+                    //Add the new key preserving value
+                    $elem.attr(preservedKey, $elem.attr(key));
+
+                    //Remove the old preserve--foo key
                     $elem.removeAttr(key);
                   }
                 }
