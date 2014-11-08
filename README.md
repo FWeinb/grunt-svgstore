@@ -254,6 +254,10 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
+#### 0.4.1
+  
+  * Introducing the `preserve--` prefix for attributes to force these attributes in the result svg (See [#71](https://github.com/FWeinb/grunt-svgstore/pull/71))
+
 #### 0.4.0
   * Generate fixed sized reference based copies of symbols (See [#58](https://github.com/FWeinb/grunt-svgstore/pull/58))
   * Add a way to inherit the viewbox form the source svg (See [#66](https://github.com/FWeinb/grunt-svgstore/pull/66))
@@ -262,7 +266,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 #### 0.3.6
 
-  * Preserve currentColor in `fill` attribute even if `cleanup` is set to `true. (See [#63](https://github.com/FWeinb/grunt-svgstore/pull/63)) 
+  * Preserve currentColor in `fill` attribute even if `cleanup` is set to `true`. (See [#63](https://github.com/FWeinb/grunt-svgstore/pull/63)) 
 
 #### 0.3.5
 
