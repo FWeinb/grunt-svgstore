@@ -249,6 +249,13 @@ grunt.initConfig({
 });
 ```
 
+## Supplemental Features
+
+There are some hidden features available in grunt-svgstore:
+
+  * Use the `preserve--` prefix (in the source SVG), for any attributes that should be forced to remain in the resulting SVG. For example, `preserve--stroke` would result in just `stroke` in the resulting SVG. This happens whether or not you ask for that attribute to be *cleaned* via `cleanup`.
+  * Using the value of `currentColor` on any property with the key `fill`, will result in that property remaining in the resulting SVG (regardless of whether or not you ask for `fill` to be *cleaned* via `cleanup`). This can be used to achieve *accent color* for you SVG instances by defining the font color on a parent element via the CSS `color` property.
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
