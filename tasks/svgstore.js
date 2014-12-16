@@ -357,9 +357,9 @@ module.exports = function (grunt) {
 
         if (defs === null) {
           grunt.log.warn('File "' + chalk.yellow(filepath) + '" contains no defs.');
+        } else {
+          $resultDefs.append(defs);
         }
-
-        $resultDefs.append(defs);
       }
 
       // Remove defs block if empty
