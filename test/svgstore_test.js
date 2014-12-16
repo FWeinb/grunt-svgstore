@@ -284,8 +284,8 @@ exports.svgstore = {
   withCustomDefs: function(test) {
     test.expect(1);
 
-    var actual = grunt.file.read('tmp/withAddedGradient.svg');
-    var expected = grunt.file.read('test/expected/withAddedGradient.svg');
+    var actual = grunt.file.read('tmp/withCustomDefs.svg');
+    var expected = grunt.file.read('test/expected/withCustomDefs.svg');
 
     test.equal(actual, expected, 'custom defs should be prepended to sprite');
     test.done();
