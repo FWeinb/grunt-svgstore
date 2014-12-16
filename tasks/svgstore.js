@@ -349,7 +349,12 @@ module.exports = function (grunt) {
           return false;
         }
 
-        var defs = grunt.file.read(filepath);
+        var $file = cheerio.load(grunt.file.read(filepath), {
+              xmlMode: true,
+              normalizeWhitespace: true
+            }),
+            defs = $file('defs').html();
+
         $resultDefs.append(defs);
       }
 

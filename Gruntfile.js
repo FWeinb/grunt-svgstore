@@ -258,7 +258,7 @@ module.exports = function(grunt) {
 
       withCustomDefs: {
         options: {
-          externalDefs: 'test/fixtures/externalDefs.xml'
+          externalDefs: 'test/fixtures/usingdef.svg'
         },
         files: {
           'tmp/withCustomDefs.svg': ['test/fixtures/itunes.svg']
