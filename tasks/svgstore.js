@@ -71,7 +71,8 @@ module.exports = function (grunt) {
       inheritviewbox: false,
       cleanupdefs: false,
       convertNameToId: defaultConvertNameToId,
-      fixedSizeVersion: false
+      fixedSizeVersion: false,
+      defs: false
     });
 
     var cleanupAttributes = [];
@@ -376,5 +377,10 @@ module.exports = function (grunt) {
         grunt.log.writeln('Demo file ' + chalk.cyan(demoPath) + ' created.');
       }
     });
+
+    if(options.defs) {
+      grunt.log.writeln('Custom Defs detected');
+      grunt.log.writeln(chalk.yellow(options.defs));
+    }
   });
 };
