@@ -72,7 +72,7 @@ module.exports = function (grunt) {
       cleanupdefs: false,
       convertNameToId: defaultConvertNameToId,
       fixedSizeVersion: false,
-      defs: false
+      externalDefs: false
     });
 
     var cleanupAttributes = [];
@@ -341,11 +341,16 @@ module.exports = function (grunt) {
         }
       });
 
-      if(options.defs) {
-        if(typeof options.defs !== 'string') {
-          grunt.warn(chalk.red('Custom Defs must be a string, skipping'));
+      if(options.externalDefs) {
+        var filepath = options.externalDefs;
+
+        if (!grunt.file.exists(filepath)) {
+          grunt.log.warn('File "' + filepath + '" not found.');
+          return false;
         }
-        $resultDefs.append(options.defs);
+
+        var defs = grunt.file.read(filepath);
+        $resultDefs.append(defs);
       }
 
       // Remove defs block if empty

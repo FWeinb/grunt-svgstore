@@ -258,7 +258,7 @@ module.exports = function(grunt) {
 
       withCustomDefs: {
         options: {
-          defs: '<linearGradient id="customGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#e1184b"/><stop offset="50%" stop-color="#f42d3c"/><stop offset="100%" stop-color="#fd8c79"/></linearGradient>'
+          externalDefs: 'test/fixtures/externalDefs.xml'
         },
         files: {
           'tmp/withCustomDefs.svg': ['test/fixtures/itunes.svg']
