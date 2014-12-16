@@ -341,6 +341,13 @@ module.exports = function (grunt) {
         }
       });
 
+      if(options.defs) {
+        if(typeof options.defs !== 'string') {
+          grunt.warn(chalk.red('Custom Defs must be a string, skipping'));
+        }
+        $resultDefs.append(options.defs);
+      }
+
       // Remove defs block if empty
       if ( $resultDefs.html().trim() === '' ) {
         $resultDefs.remove();
@@ -377,10 +384,5 @@ module.exports = function (grunt) {
         grunt.log.writeln('Demo file ' + chalk.cyan(demoPath) + ' created.');
       }
     });
-
-    if(options.defs) {
-      grunt.log.writeln('Custom Defs detected');
-      grunt.log.writeln(chalk.yellow(options.defs));
-    }
   });
 };
