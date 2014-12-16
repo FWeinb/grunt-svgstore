@@ -345,7 +345,7 @@ module.exports = function (grunt) {
         var filepath = options.externalDefs;
 
         if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('File "' + filepath + '" not found.');
+          grunt.log.error('File "' + chalk.red(filepath) + '" not found.');
           return false;
         }
 
@@ -354,6 +354,10 @@ module.exports = function (grunt) {
               normalizeWhitespace: true
             }),
             defs = $file('defs').html();
+
+        if (defs === null) {
+          grunt.log.warn('File "' + chalk.yellow(filepath) + '" contains no defs.');
+        }
 
         $resultDefs.append(defs);
       }
