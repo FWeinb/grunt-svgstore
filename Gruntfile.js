@@ -129,7 +129,7 @@ module.exports = function(grunt) {
           'tmp/cleanup_with_currentColor.svg': ['test/fixtures/cleanup_with_currentColor.svg']
         }
       },
-      
+
       preserveattribute: {
         options: {
           cleanup: ['fill', 'stroke', 'imafake']
@@ -253,6 +253,24 @@ module.exports = function(grunt) {
         },
         files: {
           'tmp/customIdFunction.svg': ['test/fixtures/naming/SomePrefix_iconName.svg']
+        }
+      },
+
+      noTitleElement: {
+        options: {
+          includeTitleElement: false
+        },
+        files: {
+          'tmp/no_title_element.svg': ['test/fixtures/codepen.svg']
+        }
+      },
+
+      noDescElement: {
+        options: {
+          preserveDescElement: false
+        },
+        files: {
+          'tmp/no_desc_element.svg': ['test/fixtures/codepen.svg']
         }
       }
     },

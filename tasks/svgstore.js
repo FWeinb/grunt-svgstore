@@ -71,7 +71,9 @@ module.exports = function (grunt) {
       inheritviewbox: false,
       cleanupdefs: false,
       convertNameToId: defaultConvertNameToId,
-      fixedSizeVersion: false
+      fixedSizeVersion: false,
+      includeTitleElement: true,
+      preserveDescElement: true,
     });
 
     var cleanupAttributes = [];
@@ -241,11 +243,11 @@ module.exports = function (grunt) {
         }
 
         // Add title and desc (if provided)
-        if (desc) {
+        if (desc && options.preserveDescElement) {
           $symbol.prepend('<desc>' + desc + '</desc>');
         }
 
-        if (title) {
+        if (title && options.includeTitleElement) {
           $symbol.prepend('<title>' + title + '</title>');
         }
 
