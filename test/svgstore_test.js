@@ -288,6 +288,27 @@ exports.svgstore = {
     var expected = grunt.file.read('test/expected/withCustomDefs.svg');
 
     test.equal(actual, expected, 'custom defs should be prepended to sprite');
+
+    test.done();
+  },
+
+  no_title_element: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/no_title_element.svg');
+    var expected = grunt.file.read('test/expected/no_title_element.svg');
+    test.equal(actual, expected, 'Symbols should not contain a title element');
+
+    test.done();
+  },
+
+  no_desc_element: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/no_desc_element.svg');
+    var expected = grunt.file.read('test/expected/no_desc_element.svg');
+    test.equal(actual, expected, 'Symbols should not contain a title element');
+
     test.done();
   }
 
