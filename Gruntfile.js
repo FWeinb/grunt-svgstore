@@ -129,7 +129,7 @@ module.exports = function(grunt) {
           'tmp/cleanup_with_currentColor.svg': ['test/fixtures/cleanup_with_currentColor.svg']
         }
       },
-      
+
       preserveattribute: {
         options: {
           cleanup: ['fill', 'stroke', 'imafake']
@@ -253,6 +253,15 @@ module.exports = function(grunt) {
         },
         files: {
           'tmp/customIdFunction.svg': ['test/fixtures/naming/SomePrefix_iconName.svg']
+        }
+      },
+
+      withCustomDefs: {
+        options: {
+          externalDefs: 'test/fixtures/usingdef.svg'
+        },
+        files: {
+          'tmp/withCustomDefs.svg': ['test/fixtures/itunes.svg']
         }
       }
     },
