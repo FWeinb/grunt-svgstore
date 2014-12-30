@@ -249,13 +249,13 @@ grunt.initConfig({
 });
 ```
 
-#### options.includeTitleElement (since 0.4.2)
+#### options.includeTitleElement (since 0.5.0)
 Type: `Boolean`
 Default value: `true`
 
 Include a `<title>` element for screen readers. Uses the filename if no `<title>` was found on the source SVG. Set to `false` only if you are providing your own accessible name in your code.
 
-#### options.preserveDescElement (since 0.4.2)
+#### options.preserveDescElement (since 0.5.0)
 Type: `Boolean`
 Default value: `true`
 
@@ -273,9 +273,11 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
-#### 0.4.2
-
+#### 0.5.0
   * Added the `includeTitleElement`  and `preserveDescElement` options for more control of the accessible names for icons (See [#83](https://github.com/FWeinb/grunt-svgstore/pull/83))
+  * Added the `externalDefs` option to include a custom set of shared `<defs>` (like gradients) across
+  multiple svgs. (See [#81](https://github.com/FWeinb/grunt-svgstore/pull/81))
+
 
 #### 0.4.1
   
