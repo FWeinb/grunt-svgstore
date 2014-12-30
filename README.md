@@ -249,6 +249,18 @@ grunt.initConfig({
 });
 ```
 
+#### options.includeTitleElement (since 0.4.2)
+Type: `Boolean`
+Default value: `true`
+
+Include a `<title>` element for screen readers. Uses the filename if no `<title>` was found on the source SVG. Set to `false` only if you are providing your own accessible name in your code.
+
+#### options.preserveDescElement (since 0.4.2)
+Type: `Boolean`
+Default value: `true`
+
+Preserve `<desc>` element for screen readers if present. Set to `false` to suppress.
+
 ## Supplemental Features
 
 There are some hidden features available in grunt-svgstore:
@@ -260,6 +272,10 @@ There are some hidden features available in grunt-svgstore:
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+
+#### 0.4.2
+
+  * Added the `includeTitleElement`  and `preserveDescElement` options for more control of the accessible names for icons (See [#83](https://github.com/FWeinb/grunt-svgstore/pull/83))
 
 #### 0.4.1
   

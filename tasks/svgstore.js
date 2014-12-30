@@ -72,7 +72,9 @@ module.exports = function (grunt) {
       cleanupdefs: false,
       convertNameToId: defaultConvertNameToId,
       fixedSizeVersion: false,
-      externalDefs: false
+      externalDefs: false,
+      includeTitleElement: true,
+      preserveDescElement: true
     });
 
     var cleanupAttributes = [];
@@ -242,11 +244,11 @@ module.exports = function (grunt) {
         }
 
         // Add title and desc (if provided)
-        if (desc) {
+        if (desc && options.preserveDescElement) {
           $symbol.prepend('<desc>' + desc + '</desc>');
         }
 
-        if (title) {
+        if (title && options.includeTitleElement) {
           $symbol.prepend('<title>' + title + '</title>');
         }
 

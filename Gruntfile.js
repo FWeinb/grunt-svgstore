@@ -263,6 +263,24 @@ module.exports = function(grunt) {
         files: {
           'tmp/withCustomDefs.svg': ['test/fixtures/itunes.svg']
         }
+      },
+
+      noTitleElement: {
+        options: {
+          includeTitleElement: false
+        },
+        files: {
+          'tmp/no_title_element.svg': ['test/fixtures/codepen.svg']
+        }
+      },
+
+      noDescElement: {
+        options: {
+          preserveDescElement: false
+        },
+        files: {
+          'tmp/no_desc_element.svg': ['test/fixtures/codepen.svg']
+        }
       }
     },
 
