@@ -325,7 +325,7 @@ module.exports = function (grunt) {
 
           $symbolFixed
             .find('use')
-            .attr('xlink:href', '#' + fixedId)
+            .attr('xlink:href', '#' + graphicId)
             .attr('transform', [
               'scale(' + parseFloat(scale.toFixed(options.fixedSizeVersion.maxDigits.scale || 4)).toPrecision() + ')',
               'translate(' + [
