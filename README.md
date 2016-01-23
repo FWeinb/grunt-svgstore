@@ -2,6 +2,9 @@
 
 > Merge SVGs from a folder.
 
+## Want to help? 
+I am looking for a maintainer who would like to take over this plugin. 
+
 ## Why?
 Because [Chris Coyier](http://shoptalkshow.com/episodes/103-louis-lazaris/#t=33:52) asked.
 
