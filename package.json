@@ -1,31 +1,7 @@
 {
   "name": "grunt-svgstore",
-  "description": "Merge SVGs from a folder.",
-  "version": "0.5.0",
-  "homepage": "https://github.com/FWeinb/grunt-svgstore",
-  "author": {
-    "name": "Fabrice Weinberg",
-    "email": "Fabrice@weinberg.me"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/FWeinb/grunt-svgstore.git"
-  },
-  "bugs": {
-    "url": "https://github.com/FWeinb/grunt-svgstore/issues"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/FWeinb/grunt-svgstore/blob/master/LICENSE-MIT"
-    }
-  ],
-  "engines": {
-    "node": ">= 0.8.0"
-  },
-  "scripts": {
-    "test": "grunt test"
-  },
+  "version": "1.0.0",
+  "description": "Merge SVGs from a folder",
   "devDependencies": {
     "grunt": "~0.4.5",
     "html-minifier": "~0.6.8",
@@ -43,10 +19,21 @@
   "peerDependencies": {
     "grunt": ">=0.4.0"
   },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": "FWeinb/grunt-svgstore",
   "keywords": [
     "svg",
     "icon",
     "sprite",
     "gruntplugin"
-  ]
+  ],
+  "author": "Fabrice Weinberg <Fabrice@weinberg.me> (http://blog.weinberg.me)",
+  "license": "MIT",
+  "bugs": "https://github.com/FWeinb/grunt-svgstore/issues",
+  "homepage": "https://github.com/FWeinb/grunt-svgstore#readme"
 }
