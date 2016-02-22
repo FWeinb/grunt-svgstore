@@ -146,7 +146,7 @@ module.exports = function (grunt) {
 
           Object.keys(attrs).forEach(function (key) {
             var value = attrs[key];
-            var id, match, preservedKey = '';
+            var id, match, isFillCurrentColor, isStrokeCurrentColor, preservedKey = '';
 
             while ( (match = urlPattern.exec(value)) !== null){
               id = match[1];
@@ -177,6 +177,9 @@ module.exports = function (grunt) {
 
                 if (cleanupAttributes.indexOf(key) > -1 || cleanupAttributes.indexOf(preservedKey) > -1){
 
+                  isFillCurrentColor = key === 'fill' && $elem.attr('fill') === 'currentColor';
+                  isStrokeCurrentColor = key === 'stroke' && $elem.attr('stroke') === 'currentColor';
+
                   if (preservedKey && preservedKey.length) {
                     //Add the new key preserving value
                     $elem.attr(preservedKey, $elem.attr(key));
@@ -184,9 +187,9 @@ module.exports = function (grunt) {
                     //Remove the old preserve--foo key
                     $elem.removeAttr(key);
                   }
-                  else if (!(key === 'fill' && $elem.attr('fill') === 'currentColor')) {
+                  else if (!(isFillCurrentColor || isStrokeCurrentColor)) {
                     // Letting fill inherit the `currentColor` allows shared inline defs to
-                    // be styled differently based on an xlink element's `color` so we leave these
+                    // be styled differently based on an SVG element's `color` so we leave these
                     $elem.removeAttr(key);
                   }
                 } else {
