@@ -264,6 +264,11 @@ module.exports = function (grunt) {
         // Add viewBox (if present on SVG w/ optional width/height fallback)
         var viewBox = $svg.attr('viewBox');
 
+        // In case the user didn't use proper caps, but all lower-case.
+        if (!viewBox && $svg.attr('viewbox')) {
+            viewBox = $svg.attr('viewbox');
+        }
+
         if (!viewBox && options.inheritviewbox) {
           var width = $svg.attr('width');
           var height = $svg.attr('height');
