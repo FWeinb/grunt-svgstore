@@ -211,6 +211,16 @@ exports.svgstore = {
     test.done();
   },
 
+  remove_withid: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/bounding_box.svg');
+    var expected = grunt.file.read('test/expected/bounding_box.svg');
+    test.equal(actual, expected, 'Elements with the removeWithId ID should be removed');
+
+    test.done();
+  },
+
   remove_emptyg: function(test) {
     test.expect(1);
 
