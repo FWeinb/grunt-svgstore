@@ -268,7 +268,7 @@ Preserve `<desc>` element for screen readers if present. Set to `false` to suppr
 Type: `String`
 Default value: `null`
 
-Use this option to provide an ID of an SVG element you'd like removed. Likely use case is a bounding box path. Simply add `id='remove-me'` and then supply `removeWithID: 'remove-me'` in the options.
+Use this option to provide an ID of an SVG element you'd like removed. Likely use case is a bounding box path. Simply add `id='remove-me'` and then supply `removeWithId: 'remove-me'` in the options.
 
 ## Supplemental Features
 
