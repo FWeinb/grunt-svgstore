@@ -71,6 +71,7 @@ module.exports = function (grunt) {
       inheritviewbox: false,
       cleanupdefs: false,
       convertNameToId: defaultConvertNameToId,
+      removeWithId: null,
       fixedSizeVersion: false,
       externalDefs: false,
       includeTitleElement: true,
@@ -132,12 +133,19 @@ module.exports = function (grunt) {
           var $elem = $(this);
           var id = $elem.attr('id');
           var uid = getUniqueId(id);
+
           mappedIds[id] = {
             id : uid,
             referenced : false,
             $elem : $elem
           };
-          $elem.attr('id', uid);
+
+          //If asked to remove elements with ID, otherwise, map unique id
+          if (options.removeWithId && id === options.removeWithId) {
+            $elem.remove();
+          } else {
+            $elem.attr('id', uid);
+          }
         });
 
         $('*').each(function () {

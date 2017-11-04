@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <path id="remove-me" fill="none" stroke="none" d="M0 0h24v24H0z"/>
+    <path class="foo" d="M17 14h4v4h-4z"/>
+    <path class="bar" d="M27 24h4v4h-4z"/>
+</svg>

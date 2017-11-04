@@ -148,6 +148,15 @@ module.exports = function(grunt) {
         }
       },
 
+      removeWithId: {
+        options: {
+          removeWithId: 'remove-me'
+        },
+        files: {
+          'tmp/bounding_box.svg': ['test/fixtures/bounding_box.svg']
+        }
+      },
+
       removeunreferencedids: {
         options: {
           cleanup: ['style', 'id'],
