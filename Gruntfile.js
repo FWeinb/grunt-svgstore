@@ -8,10 +8,7 @@
 
 'use strict';
 
-var multiline = require('multiline');
-
-module.exports = function(grunt) {
-
+module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
     jshint: {
@@ -22,7 +19,7 @@ module.exports = function(grunt) {
       ],
       options: {
         jshintrc: '.jshintrc'
-      },
+      }
     },
 
     // Before generating any new files, remove any previously-created files.
@@ -37,10 +34,10 @@ module.exports = function(grunt) {
         },
         files: {
           'tmp/default_options.svg': ['test/fixtures/codepen.svg']
-        },
+        }
       },
 
-      prefix: {
+      prefix: {
         options: {
           prefix: 'icon-'
         },
@@ -49,10 +46,10 @@ module.exports = function(grunt) {
         }
       },
 
-      svgattr: {
+      svgattr: {
         options: {
           svg: {
-            viewBox : '0 0 100 100'
+            viewBox: '0 0 100 100'
           }
         },
         files: {
@@ -60,8 +57,8 @@ module.exports = function(grunt) {
         }
       },
 
-      symbolattr: {
-        options:{
+      symbolattr: {
+        options: {
           symbol: {
             preserveAspectRatio: 'xMinYMin slice'
           }
@@ -73,32 +70,32 @@ module.exports = function(grunt) {
 
       formatting: {
         options: {
-          formatting : {
-            indent_size : 2
+          formatting: {
+            indent_size: 2
           }
         },
         files: {
           'tmp/formatting.svg': ['test/fixtures/codepen.svg']
-        },
+        }
       },
 
       withurlref: {
-        options:{},
+        options: {},
         files: {
           'tmp/withurlref.svg': ['test/fixtures/element.svg']
         }
       },
 
       nestedsymboleid: {
-        options:{},
+        options: {},
         files: {
           'tmp/nestedsymbol.svg': ['test/fixtures/nestedsymbol.svg']
         }
       },
 
       includedemo: {
-        options:{
-          includedemo : true
+        options: {
+          includedemo: true
         },
         files: {
           'tmp/includedemo.svg': ['test/fixtures/*.svg', 'test/fixtures/animation/anim.svg']
@@ -106,7 +103,7 @@ module.exports = function(grunt) {
       },
 
       cutNameAfterFirstDot: {
-        options:{},
+        options: {},
         files: {
           'tmp/cutnameafterfirstdot.svg': ['test/fixtures/naming/name.min.svg']
         }
@@ -210,9 +207,9 @@ module.exports = function(grunt) {
         }
       },
 
-      withCustomTemplate:{
+      withCustomTemplate: {
         options: {
-          includedemo : multiline.stripIndent(function(){/*
+          includedemo: `
                 <!doctype html>
                 <html>
                   <head>
@@ -238,7 +235,7 @@ module.exports = function(grunt) {
 
                   </body>
                 </html>
-          */})
+          `
         },
         files: {
           'tmp/customTemplate.svg': ['test/fixtures/animation/anim.svg']
@@ -247,7 +244,7 @@ module.exports = function(grunt) {
 
       withCustomTemplateFunction: {
         options: {
-          includedemo : function(){}
+          includedemo: function () {}
         },
         files: {
           'tmp/customTemplateFunction.svg': ['test/fixtures/animation/anim.svg']
@@ -256,7 +253,7 @@ module.exports = function(grunt) {
 
       withCustomIdFunction: {
         options: {
-          convertNameToId: function(name) {
+          convertNameToId: function (name) {
             return name.split('_')[1];
           }
         },
@@ -314,5 +311,4 @@ module.exports = function(grunt) {
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
-
 };
