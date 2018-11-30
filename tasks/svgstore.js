@@ -272,7 +272,7 @@ module.exports = function (grunt) {
 
         // In case the user didn't use proper caps, but all lower-case.
         if (!viewBox && $svg.attr('viewbox')) {
-            viewBox = $svg.attr('viewbox');
+          viewBox = $svg.attr('viewbox');
         }
 
         if (!viewBox && options.inheritviewbox) {
