@@ -1,5 +1,15 @@
 # Release History
 
+## 2.0.0 (November 30, 2018)
+
+- Support Grunt 1+ and Node 6+
+- Use eslint
+- Added the `setUniqueIds` and `removeEmptyGroupElements` options for ability
+  to choose whether or not to set unique ids and remove empty elements
+- Automatically fix `viewbox` as well as `viewBox` on source items
+- Added the `allowDuplicateItems` option to allow duplicate item names
+- Make `<desc>` available in custom templates
+
 ## 1.0.0 (February 2, 2016)
 
 - Added: Preserving of strokes (in addition to fills).

@@ -1,6 +1,6 @@
 {
   "name": "grunt-svgstore",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Merge SVGs from a folder",
   "devDependencies": {
     "eslint": "^5.9.0",
