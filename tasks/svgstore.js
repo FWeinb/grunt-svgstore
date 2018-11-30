@@ -71,7 +71,8 @@ module.exports = function (grunt) {
       fixedSizeVersion: false,
       externalDefs: false,
       includeTitleElement: true,
-      preserveDescElement: true
+      preserveDescElement: true,
+      allowDuplicateItems: false
     });
 
     var cleanupAttributes = [];
@@ -89,6 +90,8 @@ module.exports = function (grunt) {
 
       var $resultDefs = $resultDocument('defs').first();
 
+      var fileSrc = options.AllowDuplicateItems ? file.orig.src : file.src;
+
       var iconNameViewBoxArray = []; // Used to store information of all icons that are added
       // { name : '' }
 
@@ -97,7 +100,7 @@ module.exports = function (grunt) {
         $resultSvg.attr(attr, options.svg[attr]);
       }
 
-      file.src.filter(function (filepath) {
+      fileSrc.filter(function (filepath) {
         if (!grunt.file.exists(filepath)) {
           grunt.log.warn('File "' + filepath + '" not found.');
           return false;
