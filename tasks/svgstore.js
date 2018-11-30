@@ -8,8 +8,6 @@
 'use strict';
 
 module.exports = function (grunt) {
-  var crypto = require('crypto');
-  var multiline = require('multiline');
   var path = require('path');
 
   var beautify = require('js-beautify').html;
@@ -21,35 +19,33 @@ module.exports = function (grunt) {
   var urlPattern = /url\(\s*#([^ ]+?)\s*\)/g;
 
   // Default Template
-  var defaultTemplate = multiline.stripIndent(function () { /*
-    <!doctype html>
-    <html>
-      <head>
-        <style>
-          svg{
-           width:50px;
-           height:50px;
-           fill:black !important;
-          }
-        </style>
-      <head>
-      <body>
-        {{{svg}}}
+  var defaultTemplate = `<!doctype html>
+  <html>
+    <head>
+      <style>
+        svg{
+          width:50px;
+          height:50px;
+          fill:black !important;
+        }
+      </style>
+    <head>
+    <body>
+      {{{svg}}}
 
-        {{#each icons}}
-            <svg>
-              <use xlink:href="#{{name}}" />
-            </svg>
-        {{/each}}
+      {{#each icons}}
+          <svg>
+            <use xlink:href="#{{name}}" />
+          </svg>
+      {{/each}}
 
-      </body>
-    </html>
-  */});
+    </body>
+  </html>`;
 
   // Default function used to extract an id from a name
-  var defaultConvertNameToId = function(name) {
+  var defaultConvertNameToId = function (name) {
     var dotPos = name.indexOf('.');
-    if ( dotPos > -1){
+    if (dotPos > -1) {
       name = name.substring(0, dotPos);
     }
     return name;
@@ -63,7 +59,7 @@ module.exports = function (grunt) {
     var options = this.options({
       prefix: '',
       svg: {
-          'xmlns': "http://www.w3.org/2000/svg"
+        'xmlns': 'http://www.w3.org/2000/svg'
       },
       symbol: {},
       formatting: false,
@@ -82,16 +78,19 @@ module.exports = function (grunt) {
     if (options.cleanup && typeof options.cleanup === 'boolean') {
       // For backwards compatibility (introduced in 0.2.6).
       cleanupAttributes = ['style'];
-    } else if (Array.isArray(options.cleanup)){
+    } else if (Array.isArray(options.cleanup)) {
       cleanupAttributes = options.cleanup;
     }
 
     this.files.forEach(function (file) {
-      var $resultDocument = cheerio.load('<svg><defs></defs></svg>', { xmlMode: true }),
-          $resultSvg = $resultDocument('svg'),
-          $resultDefs = $resultDocument('defs').first(),
-          iconNameViewBoxArray = [];  // Used to store information of all icons that are added
-                                      // { name : '' }
+      var $resultDocument = cheerio.load('<svg><defs></defs></svg>', { xmlMode: true });
+
+      var $resultSvg = $resultDocument('svg');
+
+      var $resultDefs = $resultDocument('defs').first();
+
+      var iconNameViewBoxArray = []; // Used to store information of all icons that are added
+      // { name : '' }
 
       // Merge in SVG attributes from option
       for (var attr in options.svg) {
@@ -110,12 +109,12 @@ module.exports = function (grunt) {
         var id = options.convertNameToId(filename);
         var contentStr = grunt.file.read(filepath);
         var $ = cheerio.load(contentStr, {
-              normalizeWhitespace: true,
-              xmlMode: true
-            });
+          normalizeWhitespace: true,
+          xmlMode: true
+        });
 
         // Remove empty g elements
-        $('g').each(function(){
+        $('g').each(function () {
           var $elem = $(this);
           if (!$elem.children().length) {
             $elem.remove();
@@ -125,8 +124,8 @@ module.exports = function (grunt) {
         // Map to store references from id to uniqueId + id;
         var mappedIds = {};
 
-        function getUniqueId(oldId) {
-          return id + "-" + oldId;
+        function getUniqueId (oldId) {
+          return id + '-' + oldId;
         }
 
         $('[id]').each(function () {
@@ -135,12 +134,12 @@ module.exports = function (grunt) {
           var uid = getUniqueId(id);
 
           mappedIds[id] = {
-            id : uid,
-            referenced : false,
-            $elem : $elem
+            id: uid,
+            referenced: false,
+            $elem: $elem
           };
 
-          //If asked to remove elements with ID, otherwise, map unique id
+          // If asked to remove elements with ID, otherwise, map unique id
           if (options.removeWithId && id === options.removeWithId) {
             $elem.remove();
           } else {
@@ -154,20 +153,20 @@ module.exports = function (grunt) {
 
           Object.keys(attrs).forEach(function (key) {
             var value = attrs[key];
-            var id, match, isFillCurrentColor, isStrokeCurrentColor, preservedKey = '';
+            var id; var match; var isFillCurrentColor; var isStrokeCurrentColor; var preservedKey = '';
 
-            while ( (match = urlPattern.exec(value)) !== null){
+            while ((match = urlPattern.exec(value)) !== null) {
               id = match[1];
-              if (!!mappedIds[id]) {
+              if (mappedIds[id]) {
                 mappedIds[id].referenced = true;
                 $elem.attr(key, value.replace(match[0], 'url(#' + mappedIds[id].id + ')'));
               }
             }
 
-            if ( key === 'xlink:href' ) {
+            if (key === 'xlink:href') {
               id = value.substring(1);
               var idObj = mappedIds[id];
-              if (!!idObj){
+              if (idObj) {
                 idObj.referenced = false;
                 $elem.attr(key, '#' + idObj.id);
               }
@@ -175,37 +174,33 @@ module.exports = function (grunt) {
 
             // IDs are handled separately
             if (key !== 'id') {
-
               if (options.cleanupdefs || !$elem.parents('defs').length) {
-
                 if (key.match(/preserve--/)) {
-                  //Strip off the preserve--
+                  // Strip off the preserve--
                   preservedKey = key.substring(10);
                 }
 
-                if (cleanupAttributes.indexOf(key) > -1 || cleanupAttributes.indexOf(preservedKey) > -1){
-
+                if (cleanupAttributes.indexOf(key) > -1 || cleanupAttributes.indexOf(preservedKey) > -1) {
                   isFillCurrentColor = key === 'fill' && $elem.attr('fill') === 'currentColor';
                   isStrokeCurrentColor = key === 'stroke' && $elem.attr('stroke') === 'currentColor';
 
                   if (preservedKey && preservedKey.length) {
-                    //Add the new key preserving value
+                    // Add the new key preserving value
                     $elem.attr(preservedKey, $elem.attr(key));
 
-                    //Remove the old preserve--foo key
+                    // Remove the old preserve--foo key
                     $elem.removeAttr(key);
-                  }
-                  else if (!(isFillCurrentColor || isStrokeCurrentColor)) {
+                  } else if (!(isFillCurrentColor || isStrokeCurrentColor)) {
                     // Letting fill inherit the `currentColor` allows shared inline defs to
                     // be styled differently based on an SVG element's `color` so we leave these
                     $elem.removeAttr(key);
                   }
                 } else {
                   if (preservedKey && preservedKey.length) {
-                    //Add the new key preserving value
+                    // Add the new key preserving value
                     $elem.attr(preservedKey, $elem.attr(key));
 
-                    //Remove the old preserve--foo key
+                    // Remove the old preserve--foo key
                     $elem.removeAttr(key);
                   }
                 }
@@ -214,13 +209,13 @@ module.exports = function (grunt) {
           });
         });
 
-        if ( cleanupAttributes.indexOf('id') > -1 ) {
-          Object.keys(mappedIds).forEach(function(id){
+        if (cleanupAttributes.indexOf('id') > -1) {
+          Object.keys(mappedIds).forEach(function (id) {
             var idObj = mappedIds[id];
-            if (!idObj.referenced){
-               idObj.$elem.removeAttr('id');
+            if (!idObj.referenced) {
+              idObj.$elem.removeAttr('id');
             }
-         });
+          });
         }
 
         var $svg = $('svg');
@@ -284,7 +279,7 @@ module.exports = function (grunt) {
         $symbol.attr('id', graphicId);
 
         // Extract gradients and pattern
-        var addToDefs = function(){
+        var addToDefs = function () {
           var $elem = $res(this);
           $resultDefs.append($elem.toString());
           $elem.remove();
@@ -298,7 +293,7 @@ module.exports = function (grunt) {
         $resultSvg.append($res.html());
 
         // Add icon to the demo.html array
-        if (!!options.includedemo) {
+        if (options.includedemo) {
           iconNameViewBoxArray.push({
             name: graphicId,
             title: title
@@ -354,7 +349,7 @@ module.exports = function (grunt) {
         }
       });
 
-      if(options.externalDefs) {
+      if (options.externalDefs) {
         var filepath = options.externalDefs;
 
         if (!grunt.file.exists(filepath)) {
@@ -363,10 +358,11 @@ module.exports = function (grunt) {
         }
 
         var $file = cheerio.load(grunt.file.read(filepath), {
-              xmlMode: true,
-              normalizeWhitespace: true
-            }),
-            defs = $file('defs').html();
+          xmlMode: true,
+          normalizeWhitespace: true
+        });
+
+        var defs = $file('defs').html();
 
         if (defs === null) {
           grunt.log.warn('File "' + chalk.yellow(filepath) + '" contains no defs.');
@@ -376,7 +372,7 @@ module.exports = function (grunt) {
       }
 
       // Remove defs block if empty
-      if ( $resultDefs.html().trim() === '' ) {
+      if ($resultDefs.html().trim() === '') {
         $resultDefs.remove();
       }
 
@@ -387,20 +383,20 @@ module.exports = function (grunt) {
 
       grunt.log.writeln('File ' + chalk.cyan(file.dest) + ' created.');
 
-      if (!!options.includedemo) {
+      if (options.includedemo) {
         $resultSvg.attr('style', 'width:0;height:0;visibility:hidden;');
 
         var demoHTML;
         var viewData = {
-          svg : $resultDocument.html(),
-          icons : iconNameViewBoxArray
+          svg: $resultDocument.html(),
+          icons: iconNameViewBoxArray
         };
 
-        if (typeof options.includedemo === 'function'){
+        if (typeof options.includedemo === 'function') {
           demoHTML = options.includedemo(viewData);
-        } else{
+        } else {
           var template = defaultTemplate;
-          if (typeof options.includedemo === 'string'){
+          if (typeof options.includedemo === 'string') {
             template = options.includedemo;
           }
           demoHTML = handlebars.compile(template)(viewData);
