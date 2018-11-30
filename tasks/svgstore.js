@@ -57,22 +57,24 @@ module.exports = function (grunt) {
   grunt.registerMultiTask('svgstore', 'Merge SVGs from a folder.', function () {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
+      allowDuplicateItems: false,
+      cleanupdefs: false,
+      convertNameToId: defaultConvertNameToId,
+      externalDefs: false,
+      fixedSizeVersion: false,
+      formatting: false,
+      includedemo: false,
+      includeTitleElement: true,
+      inheritviewbox: false,
       prefix: '',
+      preserveDescElement: true,
+      removeEmptyGroupElements: true,
+      removeWithId: null,
+      setUniqueIds: true,
       svg: {
         'xmlns': 'http://www.w3.org/2000/svg'
       },
-      symbol: {},
-      formatting: false,
-      includedemo: false,
-      inheritviewbox: false,
-      cleanupdefs: false,
-      convertNameToId: defaultConvertNameToId,
-      removeWithId: null,
-      fixedSizeVersion: false,
-      externalDefs: false,
-      includeTitleElement: true,
-      preserveDescElement: true,
-      allowDuplicateItems: false
+      symbol: {}
     });
 
     var cleanupAttributes = [];
@@ -117,12 +119,14 @@ module.exports = function (grunt) {
         });
 
         // Remove empty g elements
-        $('g').each(function () {
-          var $elem = $(this);
-          if (!$elem.children().length) {
-            $elem.remove();
-          }
-        });
+        if (options.removeEmptyGroupElements) {
+          $('g').each(function () {
+            var $elem = $(this);
+            if (!$elem.children().length) {
+              $elem.remove();
+            }
+          });
+        }
 
         // Map to store references from id to uniqueId + id;
         var mappedIds = {};
@@ -131,24 +135,26 @@ module.exports = function (grunt) {
           return id + '-' + oldId;
         }
 
-        $('[id]').each(function () {
-          var $elem = $(this);
-          var id = $elem.attr('id');
-          var uid = getUniqueId(id);
+        if (options.setUniqueIds) {
+          $('[id]').each(function () {
+            var $elem = $(this);
+            var id = $elem.attr('id');
+            var uid = getUniqueId(id);
 
-          mappedIds[id] = {
-            id: uid,
-            referenced: false,
-            $elem: $elem
-          };
+            mappedIds[id] = {
+              id: uid,
+              referenced: false,
+              $elem: $elem
+            };
 
-          // If asked to remove elements with ID, otherwise, map unique id
-          if (options.removeWithId && id === options.removeWithId) {
-            $elem.remove();
-          } else {
-            $elem.attr('id', uid);
-          }
-        });
+            // If asked to remove elements with ID, otherwise, map unique id
+            if (options.removeWithId && id === options.removeWithId) {
+              $elem.remove();
+            } else {
+              $elem.attr('id', uid);
+            }
+          });
+        }
 
         $('*').each(function () {
           var $elem = $(this);
